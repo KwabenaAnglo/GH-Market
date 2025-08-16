@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Buying</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('buy.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: rgba(0,0,0,0.6); /* semi-transparent black */
+            color: #fff;
+            padding: 32px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            text-align: center;
+            backdrop-filter: blur(6px); /* frosted glass effect */
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #fff;
+            margin-bottom: 28px;
+        }
+        .buy-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .buy-form input, .buy-form select {
+            padding: 12px;
+            border: 1px solid #e0e4ea;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+        .buy-form input::placeholder {
+            color: #e0e4ea;
+        }
+        .buy-form select {
+            color: #fff;
+        }
+        .buy-form option {
+            color: #2a2e35;
+        }
+        .buy-form button {
+            padding: 12px;
+            background: #fff;
+            color: #a00f5f;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .buy-form button:hover {
+            background: #2d8cff;
+            color: #fff;
+        }
+        .success-message {
+            color: #27ae60;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start Buying</h1>
+        <p>Fill in the details to start your purchase.</p>
+        <form class="buy-form" id="buyForm">
+            <input type="text" id="itemName" placeholder="Item Name" required />
+            <input type="number" id="quantity" placeholder="Quantity" min="1" required />
+            <select id="category" required>
+                <option value="">Select Category</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="home">Home</option>
+                <option value="other">Other</option>
+            </select>
+            <button type="submit">Buy Now</button>
+        </form>
+        <div class="success-message" id="successMessage" style="display:none;">Your order has been placed!</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buyForm = document.getElementById('buyForm');
+            const successMessage = document.getElementById('successMessage');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            buyForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Get form values
+                const itemName = document.getElementById('itemName').value.trim();
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const category = document.getElementById('category').value;
+                
+                if (!itemName || isNaN(quantity) || quantity < 1 || !category) {
+                    alert('Please fill in all fields correctly');
+                    return;
+                }
+                
+                // Create cart item
+                const cartItem = {
+                    id: Date.now().toString(),
+                    name: itemName,
+                    quantity: quantity,
+                    category: category,
+                    price: 0, // You might want to add price functionality later
+                    image: 'placeholder.jpg' // Default image
+                };
+                
+                // Add to cart
+                cart.push(cartItem);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show success message
+                successMessage.textContent = 'Item added to cart successfully!';
+                successMessage.style.display = 'block';
+                
+                // Redirect to cart after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'Cart.html';
+                }, 1500);
+                
+                // Reset form
+                this.reset();
+            });
+
+            // Add animation to the form
+            const formInputs = document.querySelectorAll('.buy-form input, .buy-form select, .buy-form button');
+            formInputs.forEach((input, index) => {
+                input.style.opacity = '0';
+                input.style.transform = 'translateY(20px)';
+                input.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                
+                // Trigger animation
+                setTimeout(() => {
+                    input.style.opacity = '1';
+                    input.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Products - GH Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .upload-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #f39c12;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #f39c12;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #f39c12;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+        }
+
+        .image-upload-section {
+            border: 2px dashed #e1e8ed;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .image-upload-section:hover {
+            border-color: #f39c12;
+            background: #fff8e1;
+        }
+
+        .image-upload-section.dragover {
+            border-color: #f39c12;
+            background: #fff8e1;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .image-upload-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .image-upload-section p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image:hover {
+            background: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .tips-section {
+            background: #fff8e1;
+            border: 1px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tips-section h4 {
+            color: #d68910;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .phone-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .phone-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .email-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .email-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .image-preview {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo floating">
+                <i class="fas fa-upload"></i>
+            </div>
+            <h1>Upload Products</h1>
+            <p>Add your products to GH Marketplace and start selling</p>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="upload-form">
+            <div class="form-header">
+                <h2>Product Information</h2>
+                <p>Fill in the details below to upload your product</p>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <h3><i class="fas fa-check-circle"></i> Product Uploaded Successfully!</h3>
+                <p>Your product has been uploaded and is now live on GH Marketplace!</p>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="tips-section">
+                <h4><i class="fas fa-lightbulb"></i> Upload Tips</h4>
+                <ul class="tips-list">
+                    <li>Use high-quality images (minimum 800x600 pixels)</li>
+                    <li>Write clear, detailed product descriptions</li>
+                    <li>Set competitive prices to attract buyers</li>
+                    <li>Include all relevant product specifications</li>
+                    <li>Add multiple images from different angles</li>
+                </ul>
+            </div>
+
+            <form id="uploadForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">Product Name *</label>
+                        <input type="text" id="productName" name="productName" class="form-input" required placeholder="Enter product name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <select id="category" name="category" class="form-select" required>
+                            <option value="">Select category</option>
+                            <option value="fashion">Fashion & Accessories</option>
+                            <option value="food">Food & Beverages</option>
+                            <option value="health">Health & Beauty</option>
+                            <option value="home">Home & Garden</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="sports">Sports & Fitness</option>
+                            <option value="books">Books & Media</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price">Price (₵) *</label>
+                        <input type="number" id="price" name="price" class="form-input" required placeholder="Enter price in Ghana Cedis" min="0" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="condition">Condition *</label>
+                        <select id="condition" name="condition" class="form-select" required>
+                            <option value="">Select condition</option>
+                            <option value="new">New</option>
+                            <option value="like-new">Like New</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <input type="text" id="brand" name="brand" class="form-input" placeholder="Enter brand name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" name="model" class="form-input" placeholder="Enter model number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" class="form-input" required placeholder="Enter your city/location">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Quantity Available *</label>
+                        <input type="number" id="quantity" name="quantity" class="form-input" required placeholder="Enter quantity" min="1">
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="description">Product Description *</label>
+                    <textarea id="description" name="description" class="form-textarea" required placeholder="Describe your product in detail. Include features, specifications, and any important information buyers should know..."></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="features">Key Features</label>
+                    <textarea id="features" name="features" class="form-textarea" placeholder="List the key features of your product (one per line)..."></textarea>
+                </div>
+                
+                <!-- Image Upload Section -->
+                <div class="image-upload-section" id="imageUploadSection">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Upload Product Images</h3>
+                    <p>Drag and drop images here or click to browse</p>
+                    <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-upload"></i>
+                        Choose Images
+                    </button>
+                </div>
+                
+                <div class="image-preview" id="imagePreview"></div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-upload"></i>
+                    Upload Product
+                </button>
+            </form>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h3>Need Help with Product Upload?</h3>
+            <p style="color: #666; margin-bottom: 20px;">
+                Our support team is here to help you upload your products successfully.
+            </p>
+            
+            <div class="contact-buttons">
+                <a href="https://wa.me/233543274451" target="_blank" class="contact-btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Chat on WhatsApp
+                </a>
+                <a href="tel:+233543274451" class="contact-btn phone-btn">
+                    <i class="fas fa-phone"></i>
+                    Call Support
+                </a>
+                <a href="mailto:support@ghmarketplace.com?subject=Product%20Upload%20Help" class="contact-btn email-btn">
+                    <i class="fas fa-envelope"></i>
+                    Email Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadForm = document.getElementById('uploadForm');
+            const successMessage = document.getElementById('successMessage');
+            const imageUploadSection = document.getElementById('imageUploadSection');
+            const imageInput = document.getElementById('imageInput');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            // Drag and drop functionality
+            imageUploadSection.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+            
+            imageUploadSection.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+            });
+            
+            imageUploadSection.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+            
+            // File input change
+            imageInput.addEventListener('change', function(e) {
+                handleFiles(e.target.files);
+            });
+            
+            function handleFiles(files) {
+                Array.from(files).forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            addImagePreview(e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+            
+            function addImagePreview(src) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                previewItem.innerHTML = `
+                    <img src="${src}" alt="Product preview">
+                    <button type="button" class="remove-image" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                imagePreview.appendChild(previewItem);
+            }
+            
+            // Form submission
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const productName = document.getElementById('productName').value;
+                const price = document.getElementById('price').value;
+                const category = document.getElementById('category').value;
+                
+                if (!productName || !price || !category) {
+                    alert('Please fill in all required fields!');
+                    return;
+                }
+                
+                if (parseFloat(price) <= 0) {
+                    alert('Price must be greater than 0!');
+                    return;
+                }
+                
+                // Show success message
+                successMessage.classList.add('show');
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    uploadForm.reset();
+                    imagePreview.innerHTML = '';
+                    successMessage.classList.remove('show');
+                }, 5000);
+            });
+
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('.submit-btn, .upload-btn, .contact-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add floating animation to logo
+            const logo = document.querySelector('.logo');
+            setInterval(() => {
+                logo.style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    logo.style.transform = 'translateY(0)';
+                }, 1000);
+            }, 2000);
+
+            // Add focus effects to form inputs
+            const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

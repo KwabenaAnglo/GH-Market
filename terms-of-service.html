@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terms of Service - GH Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#fffbe7 0%,#f7faff 100%);color:#222;">
+  <div style="background:linear-gradient(90deg,#87b5e9 60%,#0877d1 100%);padding:36px 0 18px 0;text-align:center;box-shadow:0 2px 16px #2196f344;">
+    <h1 id="termsTitle" style="margin:0;font-size:2.3rem;letter-spacing:2px;font-weight:800;color:#fff;opacity:0;transform:translateY(-30px);transition:all 1s cubic-bezier(.68,-0.55,.27,1.55);">Terms of Service</h1>
+    <a href="home.html" style="display:inline-block;margin-top:18px;color:#fffde7;text-decoration:none;font-size:16px;transition:color 0.2s;">&larr; Back to Home</a>
+  </div>
+  <main style="max-width:800px;margin:40px auto 0 auto;padding:32px 20px 48px 20px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #ffd60022;opacity:0;transform:translateY(40px);transition:all 1.2s cubic-bezier(.68,-0.55,.27,1.55);">
+    <section>
+      <h2 style="color:#0b0be3c1;font-size:1.5rem;margin-top:0;">Welcome to GH Marketplace</h2>
+      <p>By using our website, you agree to the following terms and conditions. Please read them carefully.</p>
+      <h3 style="color:#005cb2;">Use of Service</h3>
+      <ul style="margin-bottom:18px;">
+        <li>You must be at least 18 years old or have parental consent to use this site.</li>
+        <li>Provide accurate and truthful information when registering or ordering.</li>
+        <li>Do not misuse our services or attempt to disrupt the site.</li>
+      </ul>
+      <h3 style="color:#005cb2;">User Accounts</h3>
+      <ul style="margin-bottom:18px;">
+        <li>Keep your login credentials confidential and secure.</li>
+        <li>You are responsible for all activity under your account.</li>
+        <li>Notify us immediately of unauthorized use or security breaches.</li>
+      </ul>
+      <h3 style="color:#005cb2;">Orders & Payments</h3>
+      <ul style="margin-bottom:18px;">
+        <li>All orders are subject to availability and confirmation.</li>
+        <li>Prices, offers, and product details may change at any time.</li>
+        <li>Payments are processed securely via approved methods.</li>
+      </ul>
+      <h3 style="color:#005cb2;">Prohibited Activities</h3>
+      <ul style="margin-bottom:18px;">
+        <li>No fraudulent, illegal, or abusive activity is allowed.</li>
+        <li>No posting of offensive, misleading, or harmful content.</li>
+        <li>No unauthorized access or data collection.</li>
+      </ul>
+      <h3 style="color:#005cb2;">Limitation of Liability</h3>
+      <p>GH Marketplace is not liable for indirect, incidental, or consequential damages. Our total liability is limited to the amount paid for your order.</p>
+      <h3 style="color:#005cb2;">Changes & Updates</h3>
+      <p>We may update these terms at any time. Continued use of the site means you accept the new terms.</p>
+      <div style="margin-top:32px;text-align:center;">
+        <button id="acceptBtn" style="background:linear-gradient(90deg,#ffd600 60%,#2196f3 100%);color:#fff;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 8px #2196f333;transition:background 0.2s,transform 0.2s;">Accept Terms</button>
+        <div id="acceptMsg" style="display:none;margin-top:18px;color:#2196f3;font-size:1.13rem;background:#e3f2fd;border-radius:10px;padding:14px 28px;box-shadow:0 2px 8px #2196f222;">Thank you for accepting our Terms of Service!</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Animate title and main content in sequence
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var title = document.getElementById('termsTitle');
+        var main = document.querySelector('main');
+        title.style.opacity = 1;
+        title.style.transform = 'translateY(0)';
+        setTimeout(function() {
+          main.style.opacity = 1;
+          main.style.transform = 'translateY(0)';
+        }, 400);
+      }, 250);
+      // Accept button animation
+      var btn = document.getElementById('acceptBtn');
+      var msg = document.getElementById('acceptMsg');
+      if(btn && msg) {
+        btn.addEventListener('click', function() {
+          btn.style.transform = 'scale(0.95)';
+          setTimeout(function() {
+            btn.style.transform = 'scale(1)';
+            msg.style.display = 'block';
+            msg.style.opacity = 1;
+          }, 350);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
