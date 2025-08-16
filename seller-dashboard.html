@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller Dashboard</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDsXfGcgdpr6Mr4Uh30y1AC0dVVrBM0lKk",
+            authDomain: "gh-market-7e974.firebaseapp.com",
+            projectId: "gh-market-7e974",
+            storageBucket: "gh-market-7e974.firebasestorage.app",
+            messagingSenderId: "604688735048",
+            appId: "1:604688735048:web:22ff1492955ceb3381717d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "index.html"; // Redirect to login if not signed in
+                return;
+            }
+
+            const docSnap = await getDoc(doc(db, "users", user.uid));
+            if (!docSnap.exists() || docSnap.data().role !== "seller") {
+                alert("Access denied! Only sellers allowed.");
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Welcome Seller!</h1>
+    <p>You can upload and manage your products here.</p>
+</body>
+</html>

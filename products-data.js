@@ -1,0 +1,80 @@
+const products = [
+    {
+        id: '1',
+        title: 'iPhone 14 Pro Max - Excellent Condition',
+        price: 899,
+        originalPrice: 1099,
+        image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop',
+        seller: { name: 'TechDeals', rating: 4.8, reviews: 234 },
+        location: 'Manhattan, NY',
+        timeAgo: '2 hours ago',
+        condition: 'like-new',
+        category: 'Electronics',
+        delivery: { available: true, fee: 5, timeRange: '1-2 days' }
+    },
+    {
+        id: '2',
+        title: 'MacBook Air M2 - Perfect for Students',
+        price: 1049,
+        originalPrice: null,
+        image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=400&fit=crop',
+        seller: { name: 'AppleStore', rating: 4.9, reviews: 567 },
+        location: 'Brooklyn, NY',
+        timeAgo: '4 hours ago',
+        condition: 'new',
+        category: 'Computers',
+        delivery: { available: true, fee: 0, timeRange: 'Same day' }
+    },
+    {
+        id: '3',
+        title: 'Vintage Leather Sofa - Mid Century Modern',
+        price: 450,
+        originalPrice: 800,
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop',
+        seller: { name: 'VintageVibes', rating: 4.6, reviews: 89 },
+        location: 'Queens, NY',
+        timeAgo: '1 day ago',
+        condition: 'good',
+        category: 'Home & Garden',
+        delivery: { available: true, fee: 25, timeRange: '2-3 days' }
+    },
+    {
+        id: '4',
+        title: 'Sony PlayStation 5 - Brand New Sealed',
+        price: 499,
+        originalPrice: 599,
+        image: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&h=400&fit=crop',
+        seller: { name: 'GameZone', rating: 4.7, reviews: 156 },
+        location: 'Manhattan, NY',
+        timeAgo: '3 hours ago',
+        condition: 'new',
+        category: 'Games',
+        delivery: { available: true, fee: 10, timeRange: '1-2 days' }
+    },
+    {
+        id: '5',
+        title: 'Designer Winter Coat - Almost New',
+        price: 120,
+        originalPrice: 299,
+        image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5d?w=400&h=400&fit=crop',
+        seller: { name: 'FashionForward', rating: 4.5, reviews: 78 },
+        location: 'Brooklyn, NY',
+        timeAgo: '6 hours ago',
+        condition: 'like-new',
+        category: 'Fashion',
+        delivery: { available: false }
+    },
+    {
+        id: '6',
+        title: 'Children’s Book Set - 10 Classic Stories',
+        price: 35,
+        originalPrice: 60,
+        image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=400&fit=crop',
+        seller: { name: 'BookBarn', rating: 4.9, reviews: 312 },
+        location: 'Bronx, NY',
+        timeAgo: '2 days ago',
+        condition: 'new',
+        category: 'Books',
+        delivery: { available: true, fee: 3, timeRange: '2-4 days' }
+    }
+]; 

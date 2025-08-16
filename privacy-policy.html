@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy - GH Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#f7faff 0%,#fffbe7 100%);color:#222;">
+  <div style="background:linear-gradient(90deg,#2196f3 60%,#ffd600 100%);padding:36px 0 18px 0;text-align:center;box-shadow:0 2px 16px #ffd60044;">
+    <h1 id="policyTitle" style="margin:0;font-size:2.3rem;letter-spacing:2px;font-weight:800;color:#fff;opacity:0;transform:translateY(-30px);transition:all 1s cubic-bezier(.68,-0.55,.27,1.55);">Privacy Policy</h1>
+    <a href="home.html" style="display:inline-block;margin-top:18px;color:#fffde7;text-decoration:none;font-size:16px;transition:color 0.2s;">&larr; Back to Home</a>
+  </div>
+  <main style="max-width:800px;margin:40px auto 0 auto;padding:32px 20px 48px 20px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #2196f322;opacity:0;transform:translateY(40px);transition:all 1.2s cubic-bezier(.68,-0.55,.27,1.55);">
+    <section>
+      <h2 style="color:#190aef;font-size:1.5rem;margin-top:0;">Your Privacy Matters</h2>
+      <p>At GH Marketplace, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use our website.</p>
+      <h3 style="color:#005cb2;">What Information We Collect</h3>
+      <ul style="margin-bottom:18px;">
+        <li>Personal details (name, email, phone, address) when you register or order</li>
+        <li>Device and usage data (browser type, IP address, pages visited)</li>
+        <li>Transaction and payment information</li>
+      </ul>
+      <h3 style="color:#005cb2;">How We Use Your Information</h3>
+      <ul style="margin-bottom:18px;">
+        <li>To process orders and deliver products</li>
+        <li>To communicate updates, offers, and support</li>
+        <li>To analyze and improve our services</li>
+        <li>For legal and security purposes</li>
+      </ul>
+      <h3 style="color:#005cb2;">Your Rights & Choices</h3>
+      <ul style="margin-bottom:18px;">
+        <li>Access, update, or delete your account information</li>
+        <li>Opt out of marketing emails at any time</li>
+        <li>Request details about your stored data</li>
+      </ul>
+      <h3 style="color:#005cb2;">Data Security</h3>
+      <p>Your data is protected with industry-standard encryption and strict access controls. We do not sell your information to third parties.</p>
+      <h3 style="color:#005cb2;">Cookies</h3>
+      <p>We use cookies to personalize your experience and analyze site traffic. You can manage cookie preferences in your browser settings.</p>
+      <h3 style="color:#005cb2;">Policy Updates</h3>
+      <p>We may update this policy from time to time. Changes will be posted here, and your continued use of the site means you accept these updates.</p>
+      <div style="margin-top:32px;text-align:center;">
+        <button id="contactBtn" style="background:linear-gradient(90deg,#2196f3 60%,#ffd600 100%);color:#fff;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 8px #ffd60033;transition:background 0.2s,transform 0.2s;">Contact Privacy Team</button>
+        <div id="contactMsg" style="display:none;margin-top:18px;color:#43a047;font-size:1.13rem;background:#e8f5e9;border-radius:10px;padding:14px 28px;box-shadow:0 2px 8px #43a04722;">Thank you! Our privacy team will contact you soon.</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Animate title and main content in sequence
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var title = document.getElementById('policyTitle');
+        var main = document.querySelector('main');
+        title.style.opacity = 1;
+        title.style.transform = 'translateY(0)';
+        setTimeout(function() {
+          main.style.opacity = 1;
+          main.style.transform = 'translateY(0)';
+        }, 400);
+      }, 250);
+      // Contact button animation
+      var btn = document.getElementById('contactBtn');
+      var msg = document.getElementById('contactMsg');
+      if(btn && msg) {
+        btn.addEventListener('click', function() {
+          btn.style.transform = 'scale(0.95)';
+          setTimeout(function() {
+            btn.style.transform = 'scale(1)';
+            msg.style.display = 'block';
+            msg.style.opacity = 1;
+          }, 350);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

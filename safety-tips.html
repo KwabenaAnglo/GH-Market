@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Tips - GH Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .safety-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .safety-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .safety-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            animation: rainbow 3s linear infinite;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: white;
+            animation: bounce 2s infinite;
+        }
+
+        .buyer-safety .card-icon {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+
+        .seller-safety .card-icon {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
+        .payment-safety .card-icon {
+            background: linear-gradient(45deg, #45b7d1, #96c93d);
+        }
+
+        .meeting-safety .card-icon {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        .safety-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .safety-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .safety-tips {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .safety-tips h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .safety-tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .safety-tips li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.5;
+        }
+
+        .safety-tips li::before {
+            content: '🛡️';
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+        }
+
+        .warning-badge {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .emergency-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+            margin-bottom: 40px;
+        }
+
+        .emergency-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .emergency-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .emergency-btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .police-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .police-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .support-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .support-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .red-flags-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInRight 1s ease-out;
+        }
+
+        .red-flags-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .red-flags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .red-flag {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #e74c3c;
+            transition: all 0.3s ease;
+        }
+
+        .red-flag:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.2);
+        }
+
+        .red-flag h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .red-flag p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .phone-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .phone-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .email-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .email-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .safety-checklist {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .safety-checklist h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .checklist-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .checklist-item h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist-item li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.5;
+        }
+
+        .checklist-item li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .safety-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .emergency-buttons,
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .red-flags-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #e74c3c, 0 0 10px #e74c3c, 0 0 15px #e74c3c;
+            }
+            to {
+                box-shadow: 0 0 10px #e74c3c, 0 0 20px #e74c3c, 0 0 30px #e74c3c;
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo floating">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Safety Tips</h1>
+            <p>Stay Safe While Buying and Selling on GH Marketplace</p>
+        </div>
+
+        <!-- Safety Guidelines Grid -->
+        <div class="safety-grid">
+            <!-- Buyer Safety -->
+            <div class="safety-card buyer-safety">
+                <div class="card-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Buyer Safety</h3>
+                <p>Protect yourself when making purchases and ensure you get what you pay for.</p>
+                
+                <div class="safety-tips">
+                    <h4><i class="fas fa-check-circle"></i> Before You Buy</h4>
+                    <ul>
+                        <li>Always meet in public, well-lit locations</li>
+                        <li>Inspect items thoroughly before payment</li>
+                        <li>Ask for detailed photos and descriptions</li>
+                        <li>Verify seller's contact information</li>
+                        <li>Check seller's ratings and reviews</li>
+                        <li>Use secure payment methods only</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-badge">⚠️ Never Pay Before Seeing</div>
+            </div>
+
+            <!-- Seller Safety -->
+            <div class="safety-card seller-safety">
+                <div class="card-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>Seller Safety</h3>
+                <p>Keep yourself and your items safe when meeting potential buyers.</p>
+                
+                <div class="safety-tips">
+                    <h4><i class="fas fa-shield-alt"></i> Safe Selling Practices</h4>
+                    <ul>
+                        <li>Meet in safe, public locations only</li>
+                        <li>Bring a friend or family member</li>
+                        <li>Accept cash or secure payments only</li>
+                        <li>Keep your personal information private</li>
+                        <li>Trust your instincts - if unsure, don't proceed</li>
+                        <li>Document all transactions</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-badge">🛡️ Safety First</div>
+            </div>
+
+            <!-- Payment Safety -->
+            <div class="safety-card payment-safety">
+                <div class="card-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3>Payment Safety</h3>
+                <p>Use secure payment methods and avoid common scams.</p>
+                
+                <div class="safety-tips">
+                    <h4><i class="fas fa-lock"></i> Secure Payments</h4>
+                    <ul>
+                        <li>Use Mobile Money or bank transfers</li>
+                        <li>Verify payment confirmations</li>
+                        <li>Never share PIN codes or passwords</li>
+                        <li>Avoid wire transfers to unknown accounts</li>
+                        <li>Keep payment receipts and records</li>
+                        <li>Report suspicious payment requests</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-badge">💳 Secure Payments Only</div>
+            </div>
+
+            <!-- Meeting Safety -->
+            <div class="safety-card meeting-safety">
+                <div class="card-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Meeting Safety</h3>
+                <p>Stay safe during in-person meetings and transactions.</p>
+                
+                <div class="safety-tips">
+                    <h4><i class="fas fa-map-marker-alt"></i> Safe Meeting Places</h4>
+                    <ul>
+                        <li>Choose busy, public locations</li>
+                        <li>Meet during daylight hours</li>
+                        <li>Tell someone where you're going</li>
+                        <li>Bring your phone and keep it charged</li>
+                        <li>Park in well-lit areas</li>
+                        <li>Have an exit plan ready</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-badge">📍 Public Places Only</div>
+            </div>
+        </div>
+
+        <!-- Emergency Section -->
+        <div class="emergency-section">
+            <h2>Emergency Contacts</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                If you feel unsafe or encounter suspicious activity, contact these numbers immediately.
+            </p>
+            
+            <div class="emergency-buttons">
+                <a href="tel:191" class="emergency-btn police-btn">
+                    <i class="fas fa-phone"></i>
+                    Police Emergency (191)
+                </a>
+                <a href="tel:+233543274451" class="emergency-btn support-btn">
+                    <i class="fas fa-headset"></i>
+                    GH Market Support
+                </a>
+                <a href="https://wa.me/233543274451" target="_blank" class="emergency-btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp Support
+                </a>
+            </div>
+        </div>
+
+        <!-- Red Flags Section -->
+        <div class="red-flags-section">
+            <h2>Red Flags to Watch For</h2>
+            <div class="red-flags-grid">
+                <div class="red-flag">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Too Good to Be True</h4>
+                    <p>Extremely low prices or unbelievable deals are often scams. If it seems too good to be true, it probably is.</p>
+                </div>
+                <div class="red-flag">
+                    <h4><i class="fas fa-user-secret"></i> Refuses to Meet</h4>
+                    <p>Sellers who refuse to meet in person or only want to ship items may be hiding something.</p>
+                </div>
+                <div class="red-flag">
+                    <h4><i class="fas fa-money-bill-wave"></i> Payment Pressure</h4>
+                    <p>Anyone pressuring you to pay quickly or using unusual payment methods should be avoided.</p>
+                </div>
+                <div class="red-flag">
+                    <h4><i class="fas fa-phone-slash"></i> Won't Call or Video</h4>
+                    <p>Legitimate sellers should be willing to call or video chat to verify their identity.</p>
+                </div>
+                <div class="red-flag">
+                    <h4><i class="fas fa-map-marker-slash"></i> Vague Location</h4>
+                    <p>Sellers who won't provide a specific meeting location or keep changing it are suspicious.</p>
+                </div>
+                <div class="red-flag">
+                    <h4><i class="fas fa-clock"></i> Rush to Complete</h4>
+                    <p>Scammers often create urgency to prevent you from thinking clearly or doing research.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety Checklist -->
+        <div class="safety-checklist">
+            <h2>Safety Checklist</h2>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h4><i class="fas fa-search"></i> Before Meeting</h4>
+                    <ul>
+                        <li>Research the item thoroughly</li>
+                        <li>Check seller's profile and reviews</li>
+                        <li>Agree on meeting location and time</li>
+                        <li>Tell a friend or family member</li>
+                        <li>Charge your phone fully</li>
+                        <li>Plan your route and parking</li>
+                    </ul>
+                </div>
+                <div class="checklist-item">
+                    <h4><i class="fas fa-handshake"></i> During Meeting</h4>
+                    <ul>
+                        <li>Meet in a public, well-lit area</li>
+                        <li>Inspect the item carefully</li>
+                        <li>Test electronics if applicable</li>
+                        <li>Ask questions about the item</li>
+                        <li>Use secure payment methods</li>
+                        <li>Get a receipt or proof of purchase</li>
+                    </ul>
+                </div>
+                <div class="checklist-item">
+                    <h4><i class="fas fa-home"></i> After Transaction</h4>
+                    <ul>
+                        <li>Keep all transaction records</li>
+                        <li>Leave honest feedback</li>
+                        <li>Report any issues immediately</li>
+                        <li>Block suspicious users</li>
+                        <li>Update your security settings</li>
+                        <li>Share your experience with others</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Need Help or Have Concerns?</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                Our safety team is here to help! Contact us immediately if you encounter any suspicious activity or need assistance.
+            </p>
+            
+            <div class="contact-buttons">
+                <a href="https://wa.me/233543274451" target="_blank" class="contact-btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Chat on WhatsApp
+                </a>
+                <a href="tel:+233543274451" class="contact-btn phone-btn">
+                    <i class="fas fa-phone"></i>
+                    Call Support
+                </a>
+                <a href="mailto:support@ghmarketplace.com?subject=Safety%20Concern" class="contact-btn email-btn">
+                    <i class="fas fa-envelope"></i>
+                    Report Issue
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.safety-card, .red-flag, .checklist-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('.emergency-btn, .contact-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add floating animation to logo
+            const logo = document.querySelector('.logo');
+            setInterval(() => {
+                logo.style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    logo.style.transform = 'translateY(0)';
+                }, 1000);
+            }, 2000);
+
+            // Add hover effects to red flags
+            const redFlags = document.querySelectorAll('.red-flag');
+            redFlags.forEach(flag => {
+                flag.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                flag.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add emergency button pulse effect
+            const emergencyBtns = document.querySelectorAll('.emergency-btn');
+            emergencyBtns.forEach(btn => {
+                setInterval(() => {
+                    btn.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        btn.style.transform = 'scale(1)';
+                    }, 500);
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html> 

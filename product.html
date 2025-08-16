@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .product-actions { margin: 1.5rem 0 1rem 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+      .product-actions button, .product-actions a { padding: 0.7rem 1.5rem; border-radius: 6px; border: none; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+      .add-cart-btn { background: #007bff; color: #fff; }
+      .add-cart-btn:hover { background: #0056b3; }
+      .contact-btn { background: #f5f7fa; color: #222; border: 1px solid #ddd; }
+      .contact-btn:hover { background: #e2e6ea; }
+      .share-btn { background: #fffbe6; color: #b8860b; border: 1px solid #ffe58f; }
+      .share-btn:hover { background: #fff3cd; }
+      .cart-count { background: #e74c3c; color: #fff; border-radius: 50%; padding: 0.2em 0.6em; font-size: 0.95em; margin-left: 0.5em; }
+      .related-products { margin-top: 2.5rem; }
+      .related-products h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+      .related-list { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+      .related-card { background: #fafbfc; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 1rem; width: 180px; cursor: pointer; transition: box-shadow 0.2s; text-align: center; }
+      .related-card:hover { box-shadow: 0 4px 16px #0002; background: #f5f7fa; }
+      .related-card img { width: 100%; border-radius: 6px; margin-bottom: 0.5rem; }
+      .related-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; }
+      .related-price { color: #007bff; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <a href="home.html" style="display:block;margin:1rem 0;">&larr; Back to Home</a>
+    <div class="container">
+        <div id="productDetails">Loading product info...</div>
+        <div class="related-products" id="relatedProducts"></div>
+    </div>
+    <script src="products-data.js"></script>
+    <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const productId = getQueryParam('id');
+    let html = '';
+    let currentProduct = null;
+    if (productId && typeof products !== 'undefined') {
+      const product = products.find(p => p.id === productId);
+      currentProduct = product;
+      if (product) {
+        html = `
+          <div style='display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;'>
+            <img src="${product.image}" alt="${product.title}" style="max-width:300px;border-radius:10px;box-shadow:0 2px 12px #0001;">
+            <div>
+              <h1>${product.title}</h1>
+              <p><strong>Price:</strong> ₵${product.price}${product.originalPrice ? ` <span style='text-decoration:line-through;color:#888;font-size:1rem;'>₵${product.originalPrice}</span>` : ''}</p>
+              <p><strong>Seller:</strong> ${product.seller.name} (⭐${product.seller.rating} / ${product.seller.reviews} reviews)</p>
+              <p><strong>Location:</strong> ${product.location}</p>
+              <p><strong>Condition:</strong> ${product.condition}</p>
+              <p><strong>Category:</strong> ${product.category}</p>
+              <div class="delivery-info" style="margin: 1.2rem 0; padding: 0.8rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                  <i class="fas fa-truck" style="color: #28a745; font-size: 1.2rem;"></i>
+                  <strong style="font-size: 1.1rem;">
+                    ${product.delivery && product.delivery.available ? 'Delivery Available' : 'No Delivery'}
+                  </strong>
+                </div>
+                ${product.delivery && product.delivery.available ? `
+                  <div style="margin-left: 1.8rem; color: #495057;">
+                    <div>• Delivery Fee: <strong>₵${product.delivery.fee}</strong></div>
+                    <div>• Estimated Delivery: <strong>${product.delivery.timeRange}</strong></div>
+                    ${product.delivery.freeThreshold ? `
+                      <div>• Free delivery on orders above <strong>₵${product.delivery.freeThreshold}</strong></div>
+                    ` : ''}
+                    ${product.delivery.quickDelivery ? `
+                      <div>• <span style="color: #28a745;">✓ Fast Delivery Available</span></div>
+                    ` : ''}
+                  </div>
+                ` : `
+                  <div style="margin-left: 1.8rem; color: #6c757d;">
+                    This item is available for pickup only.
+                  </div>
+                `}
+              </div>
+              <p><strong>Listed:</strong> ${product.timeAgo}</p>
+              <div class="product-actions">
+                <button class="add-cart-btn" id="addToCartBtn">Add to Cart <span class="cart-count" id="cartCount"></span></button>
+                <a class="contact-btn" href="mailto:seller@example.com?subject=Interested in ${encodeURIComponent(product.title)}">Contact Seller</a>
+                <a class="contact-btn" href="https://wa.me/233543274451?text=Hi! I'm interested in the ${encodeURIComponent(product.title)}. Can you tell me more about it?" target="_blank" style="background:#25d366;color:white;">📱 WhatsApp</a>
+                <button class="share-btn" id="shareBtn">Share</button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        html = '<div style="color:red;">Product not found.</div>';
+      }
+    } else {
+      html = '<div style="color:red;">No product selected.</div>';
+    }
+    document.getElementById('productDetails').innerHTML = html;
+
+    // Add to Cart logic
+    function updateCartCount() {
+      const count = parseInt(localStorage.getItem('cartCount') || '0', 10);
+      const cartCountEl = document.getElementById('cartCount');
+      if (cartCountEl) cartCountEl.textContent = count > 0 ? count : '';
+    }
+    updateCartCount();
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    if (addToCartBtn && currentProduct) {
+      addToCartBtn.addEventListener('click', function() {
+        let count = parseInt(localStorage.getItem('cartCount') || '0', 10);
+        count++;
+        localStorage.setItem('cartCount', count);
+        updateCartCount();
+        addToCartBtn.textContent = 'Added!';
+        setTimeout(() => {
+          addToCartBtn.textContent = 'Add to Cart ';
+          updateCartCount();
+        }, 1200);
+      });
+    }
+
+    // Share button logic
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn && currentProduct) {
+      shareBtn.addEventListener('click', function() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          shareBtn.textContent = 'Link Copied!';
+          setTimeout(() => { shareBtn.textContent = 'Share'; }, 1200);
+        });
+      });
+    }
+
+    // Related products
+    if (currentProduct) {
+      const related = products.filter(p => p.category === currentProduct.category && p.id !== currentProduct.id).slice(0, 3);
+      let relatedHtml = '';
+      if (related.length) {
+        relatedHtml = '<h2>Related Products</h2><div class="related-list">';
+        related.forEach(r => {
+          relatedHtml += `<div class="related-card" onclick="window.location.href='product.html?id=${r.id}'">
+            <img src="${r.image}" alt="${r.title}">
+            <div class="related-title">${r.title}</div>
+            <div class="related-price">₵${r.price}</div>
+          </div>`;
+        });
+        relatedHtml += '</div>';
+      }
+      document.getElementById('relatedProducts').innerHTML = relatedHtml;
+    }
+    </script>
+</body>
+</html> 

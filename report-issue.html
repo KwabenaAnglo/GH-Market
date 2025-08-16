@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - GH Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .report-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInUp 0.8s ease-out;
+            margin-bottom: 40px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: glow 2s ease-in-out infinite alternate;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .issue-categories {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .issue-categories h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .category-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+            animation: bounce 2s infinite;
+        }
+
+        .category-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .priority-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .priority-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .priority-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .priority-option {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .priority-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .priority-option.selected {
+            border-color: #e74c3c;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+
+        .priority-option.high {
+            border-color: #e74c3c;
+        }
+
+        .priority-option.medium {
+            border-color: #f39c12;
+        }
+
+        .priority-option.low {
+            border-color: #27ae60;
+        }
+
+        .priority-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .high .priority-badge {
+            background: #e74c3c;
+        }
+
+        .medium .priority-badge {
+            background: #f39c12;
+        }
+
+        .low .priority-badge {
+            background: #27ae60;
+        }
+
+        .priority-option h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .priority-option p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .phone-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .phone-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .email-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .email-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .priority-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #667eea, 0 0 10px #667eea, 0 0 15px #667eea;
+            }
+            to {
+                box-shadow: 0 0 10px #667eea, 0 0 20px #667eea, 0 0 30px #667eea;
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo floating">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1>Report Issue</h1>
+            <p>Help us improve by reporting problems or concerns</p>
+        </div>
+
+        <!-- Report Form -->
+        <div class="report-form">
+            <div class="form-header">
+                <h2>Report an Issue</h2>
+                <p>Please provide as much detail as possible to help us resolve your issue quickly</p>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <h3><i class="fas fa-check-circle"></i> Issue Reported Successfully!</h3>
+                <p>Thank you for your report. We'll review it and get back to you within 24 hours.</p>
+            </div>
+
+            <form id="reportForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueType">Issue Type *</label>
+                        <select id="issueType" name="issueType" required>
+                            <option value="">Select issue type</option>
+                            <option value="scam">Scam or Fraud</option>
+                            <option value="fake">Fake Product</option>
+                            <option value="harassment">Harassment</option>
+                            <option value="payment">Payment Issue</option>
+                            <option value="delivery">Delivery Problem</option>
+                            <option value="technical">Technical Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Brief description of the issue">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="description">Detailed Description *</label>
+                        <textarea id="description" name="description" required placeholder="Please provide a detailed description of the issue, including any relevant dates, times, and user information..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderId">Order ID (if applicable)</label>
+                        <input type="text" id="orderId" name="orderId" placeholder="Enter order ID if related to a purchase">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerId">Seller ID (if applicable)</label>
+                        <input type="text" id="sellerId" name="sellerId" placeholder="Enter seller ID if reporting a seller">
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Report
+                </button>
+            </form>
+        </div>
+
+        <!-- Issue Categories -->
+        <div class="issue-categories">
+            <h2>Common Issue Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="scam">
+                    <div class="category-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h4>Scam or Fraud</h4>
+                    <p>Report suspicious sellers, fake products, or fraudulent activities</p>
+                </div>
+                
+                <div class="category-card" data-category="fake">
+                    <div class="category-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>Fake Products</h4>
+                    <p>Report counterfeit items or products that don't match descriptions</p>
+                </div>
+                
+                <div class="category-card" data-category="harassment">
+                    <div class="category-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h4>Harassment</h4>
+                    <p>Report abusive behavior, threats, or inappropriate messages</p>
+                </div>
+                
+                <div class="category-card" data-category="payment">
+                    <div class="category-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h4>Payment Issues</h4>
+                    <p>Report payment problems, unauthorized charges, or refund issues</p>
+                </div>
+                
+                <div class="category-card" data-category="delivery">
+                    <div class="category-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h4>Delivery Problems</h4>
+                    <p>Report shipping delays, damaged items, or delivery issues</p>
+                </div>
+                
+                <div class="category-card" data-category="technical">
+                    <div class="category-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h4>Technical Issues</h4>
+                    <p>Report website problems, app crashes, or technical difficulties</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority Section -->
+        <div class="priority-section">
+            <h2>Issue Priority</h2>
+            <div class="priority-options">
+                <div class="priority-option high" data-priority="high">
+                    <div class="priority-badge">High Priority</div>
+                    <h4>Urgent</h4>
+                    <p>Safety concerns, fraud, or immediate threats</p>
+                </div>
+                
+                <div class="priority-option medium" data-priority="medium">
+                    <div class="priority-badge">Medium Priority</div>
+                    <h4>Important</h4>
+                    <p>Payment issues, delivery problems, or user complaints</p>
+                </div>
+                
+                <div class="priority-option low" data-priority="low">
+                    <div class="priority-badge">Low Priority</div>
+                    <h4>General</h4>
+                    <p>Suggestions, feedback, or minor technical issues</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Need Immediate Assistance?</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                For urgent issues or immediate help, contact our support team directly.
+            </p>
+            
+            <div class="contact-buttons">
+                <a href="https://wa.me/233543274451" target="_blank" class="contact-btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Chat on WhatsApp
+                </a>
+                <a href="tel:+233543274451" class="contact-btn phone-btn">
+                    <i class="fas fa-phone"></i>
+                    Call Support
+                </a>
+                <a href="mailto:support@ghmarketplace.com?subject=Urgent%20Issue%20Report" class="contact-btn email-btn">
+                    <i class="fas fa-envelope"></i>
+                    Email Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category selection
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selection from other cards
+                    categoryCards.forEach(c => c.classList.remove('selected'));
+                    // Add selection to clicked card
+                    this.classList.add('selected');
+                    
+                    // Update form dropdown
+                    const category = this.getAttribute('data-category');
+                    const issueTypeSelect = document.getElementById('issueType');
+                    issueTypeSelect.value = category;
+                });
+            });
+
+            // Priority selection
+            const priorityOptions = document.querySelectorAll('.priority-option');
+            priorityOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selection from other options
+                    priorityOptions.forEach(o => o.classList.remove('selected'));
+                    // Add selection to clicked option
+                    this.classList.add('selected');
+                });
+            });
+
+            // Form submission
+            const reportForm = document.getElementById('reportForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            reportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show success message
+                successMessage.classList.add('show');
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    reportForm.reset();
+                    successMessage.classList.remove('show');
+                    
+                    // Clear selections
+                    categoryCards.forEach(c => c.classList.remove('selected'));
+                    priorityOptions.forEach(o => o.classList.remove('selected'));
+                }, 3000);
+            });
+
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('.submit-btn, .contact-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add floating animation to logo
+            const logo = document.querySelector('.logo');
+            setInterval(() => {
+                logo.style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    logo.style.transform = 'translateY(0)';
+                }, 1000);
+            }, 2000);
+
+            // Add hover effects to category cards
+            categoryCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('selected')) {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            });
+
+            // Add pulse effect to submit button
+            const submitBtn = document.querySelector('.submit-btn');
+            setInterval(() => {
+                submitBtn.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    submitBtn.style.transform = 'scale(1)';
+                }, 500);
+            }, 3000);
+        });
+    </script>
+</body>
+</html> 

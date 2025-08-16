@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            color: white;
+            background: #3498db;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(52, 152, 219, 0.4);
+            background: #2980b9;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floatingElements"></div>
+    <div class="container">
+        <h1>Start Shopping</h1>
+        <p class="tagline">Discover amazing products at unbeatable prices</p>
+        <a href="#" class="btn" id="shopNowBtn">Shop Now</a>
+    </div>
+
+    <script>
+        // Create floating elements
+        const container = document.getElementById('floatingElements');
+        const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#1abc9c'];
+        
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            
+            // Random size between 10px and 50px
+            const size = Math.random() * 40 + 10;
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            
+            // Random position
+            element.style.left = `${Math.random() * 100}%`;
+            element.style.top = `${Math.random() * 100}%`;
+            
+            // Random color
+            element.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random animation duration
+            const duration = Math.random() * 15 + 10;
+            element.style.animationDuration = `${duration}s`;
+            
+            container.appendChild(element);
+            
+            // Remove element after animation completes
+            setTimeout(() => {
+                element.remove();
+            }, duration * 1000);
+        }
+
+        // Create initial floating elements
+        for (let i = 0; i < 20; i++) {
+            createFloatingElement();
+        }
+
+        // Continue creating new elements
+        setInterval(createFloatingElement, 1000);
+
+        // Add click effect to button
+        const shopNowBtn = document.getElementById('shopNowBtn');
+        shopNowBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            shopNowBtn.classList.add('pulse');
+            setTimeout(() => {
+                shopNowBtn.classList.remove('pulse');
+                window.location.href = 'shop.html';
+            }, 300);
+        });
+
+        // Add hover effect to button
+        shopNowBtn.addEventListener('mouseover', () => {
+            shopNowBtn.style.transform = 'translateY(-5px)';
+        });
+
+        shopNowBtn.addEventListener('mouseout', () => {
+            shopNowBtn.style.transform = 'translateY(0)';
+        });
+    </script>
+</body>
+</html>

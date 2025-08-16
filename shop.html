@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Shopping - GH Marketplace</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="shop.css">
+<body>
+  <header class="shop-header animate__animated animate__fadeInDown">
+    <div class="container">
+      <a href="home.html" class="shop-back-link">&larr; Back to Home</a>
+      <h1>Start Shopping</h1>
+    </div>
+  </header>
+  <main>
+    <section class="shop-hero animate__animated animate__fadeIn">
+      <div class="container">
+        <h2 class="animate__animated animate__fadeInUp">Browse All Categories</h2>
+        <p class="animate__animated animate__fadeInUp animate__delay-1s">Find the best products across all categories. Enjoy deals, fast delivery, and authentic Ghanaian goods!</p>
+      </div>
+    </section>
+    
+    <section class="shop-categories">
+      <div class="container">
+        <div class="shop-category-grid">
+          <a href="crafts.html" class="shop-category-card animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3>Crafts</h3>
+            <p>Handmade treasures from local artisans</p>
+            <span class="explore-btn">Explore <i class="fas fa-arrow-right"></i></span>
+          </a>
+          
+          <a href="local-food.html" class="shop-category-card animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <h3>Local Food</h3>
+            <p>Authentic Ghanaian delicacies</p>
+            <span class="explore-btn">Explore <i class="fas fa-arrow-right"></i></span>
+          </a>
+          
+          <a href="beauty.html" class="shop-category-card animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-spa"></i>
+            </div>
+            <h3>Beauty</h3>
+            <p>Natural beauty products</p>
+            <span class="explore-btn">Explore <i class="fas fa-arrow-right"></i></span>
+          </a>
+          
+          <a href="phones.html" class="shop-category-card animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Phones</h3>
+            <p>Latest smartphones & accessories</p>
+            <span class="explore-btn">Explore <i class="fas fa-arrow-right"></i></span>
+          </a>
+          
+          <a href="groceries.html" class="shop-category-card animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-shopping-basket"></i>
+            </div>
+            <h3>Groceries</h3>
+            <p>Fresh produce & daily essentials</p>
+            <span class="explore-btn">Explore <i class="fas fa-arrow-right"></i></span>
+          </a>
+          
+          <a href="hot-deals.html" class="shop-category-card shop-hot animate__animated">
+            <div class="card-icon">
+              <i class="fas fa-fire"></i>
+            </div>
+            <h3>Hot Deals</h3>
+            <p>Limited time offers</p>
+            <span class="explore-btn">Shop Now <i class="fas fa-bolt"></i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS (Animate On Scroll)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add animation classes to cards with staggered delay
+      const cards = document.querySelectorAll('.shop-category-card');
+      cards.forEach((card, index) => {
+        card.classList.add('animate__fadeInUp');
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        // Add hover effect
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px)';
+          this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.1)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.06)';
+        });
+      });
+    });
+  </script>
+  <script src="shop.js"></script>
+</body>
+</html>
