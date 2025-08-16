@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Info</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="home.html" style="display:block;margin:1rem 0;">&larr; Back to Home</a>
+    <div class="container">
+        <h1 id="featureTitle">Feature Info</h1>
+        <div id="featureInfo">Loading feature info...</div>
+    </div>
+    <script>
+    // Get feature name from URL
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const featureName = getQueryParam('name');
+    document.getElementById('featureTitle').textContent = featureName ? decodeURIComponent(featureName) : 'Feature Info';
+    document.getElementById('featureInfo').textContent = featureName ? `Details for feature: ${decodeURIComponent(featureName)}` : 'No feature selected.';
+    </script>
+</body>
+</html> 

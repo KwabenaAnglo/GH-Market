@@ -1,0 +1,121 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9fff7;
+}
+.groceries-header {
+  background: #fff;
+  box-shadow: 0 2px 8px #eee;
+  padding: 24px 0 12px 0;
+  text-align: center;
+}
+.groceries-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  color: #388e3c;
+  letter-spacing: 2px;
+}
+.groceries-back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #43a047;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.groceries-back-link:hover {
+  color: #388e3c;
+}
+.groceries-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 0 40px 0;
+  background: linear-gradient(90deg, #f9fff7 60%, #c8e6c9 100%);
+}
+.groceries-hero-text {
+  max-width: 400px;
+}
+.groceries-hero-text h2 {
+  font-size: 2rem;
+  color: #43a047;
+  margin-bottom: 12px;
+}
+.groceries-hero-text p {
+  font-size: 1.1rem;
+  color: #1b5e20;
+}
+.groceries-video-container {
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px #43a04733;
+  border: 5px solid #fff;
+  background: #fff;
+}
+.groceries-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.groceries-categories {
+  padding: 32px 0 48px 0;
+  text-align: center;
+}
+.groceries-categories h3 {
+  font-size: 1.6rem;
+  color: #388e3c;
+  margin-bottom: 24px;
+}
+.groceries-category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.groceries-category-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #43a04722;
+  padding: 28px 36px;
+  font-size: 1.15rem;
+  color: #388e3c;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  will-change: transform;
+}
+.groceries-category-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 32px #43a04744;
+  background: #e8f5e9;
+}
+/* Animations */
+.groceries-fade-in {
+  opacity: 0;
+  animation: fadeInGroceries 1.1s ease-out forwards;
+}
+.groceries-fade-in-delay {
+  opacity: 0;
+  animation: fadeInGroceries 1.1s 0.7s ease-out forwards;
+}
+.groceries-slide-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: slideInGroceries 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+@keyframes fadeInGroceries {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInGroceries {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

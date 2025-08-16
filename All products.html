@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Products - GH Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: 'Montserrat', Arial, sans-serif; background: #fff; color: #222; margin: 0; }
+    header { background: #eaf1f1; color: #0c0b0b; padding: 2rem 0 1rem 0; text-align: center; font-size: 2.2rem; font-weight: bold; }
+    .filters { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0 1rem 0; flex-wrap: wrap; font-size: 1rem; }
+    .filters select, .filters input[type="search"] { padding: 0.3rem 0.7rem; border-radius: 6px; border: 1px solid #ccc; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2rem; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    .product-card {
+      position: relative;
+      background: #e6e7e7;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+      opacity: 0;
+      transform: scale(0.95) translateY(40px);
+      animation: bounceIn 0.8s forwards;
+    }
+    .product-card:hover {
+      transform: translateY(-12px) scale(1.04) rotate(-1deg);
+      box-shadow: 0 12px 40px rgba(201, 46, 46, 0.2);
+      z-index: 2;
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.8) translateY(40px);}
+      60% { opacity: 1; transform: scale(1.05) translateY(-10px);}
+      100% { opacity: 1; transform: scale(1) translateY(0);}
+    }
+    .badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #db1c07;
+      color: #fff;
+      padding: 0.2em 0.7em;
+      border-radius: 6px;
+      font-size: 0.85em;
+      font-weight: bold;
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.3s;
+    }
+    .product-card:hover .product-img {
+      filter: brightness(0.93) blur(1px);
+    }
+    .product-info {
+      padding: 1rem;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+    }
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.2rem 0;
+      color: #222;
+    }
+    .product-desc {
+      color: #666;
+      font-size: 0.97em;
+      margin-bottom: 0.4em;
+    }
+    .product-rating {
+      color: #ffd700;
+      margin-bottom: 0.4em;
+      font-size: 1em;
+    }
+    .product-price {
+      font-size: 1rem;
+      color: #e67e22;
+      font-weight: bold;
+      margin-bottom: 0.7em;
+    }
+    .add-cart-btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5em 1.2em;
+      font-size: 1em;
+      margin-top: 0.2em;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .add-cart-btn:hover {
+      background: #e67e22;
+    }
+    footer {
+      background: #bff7f7;
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      font-size: 1rem;
+      color: #444;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>ALL PRODUCTS</header>
+  <div class="filters">
+    <input type="search" id="searchInput" placeholder="Search products...">
+    <select id="categoryFilter">
+      <option value="">All Categories</option>
+      <option value="Apparel">Apparel</option>
+      <option value="Hats">Hats</option>
+      <option value="Shoes">Shoes</option>
+    </select>
+    <select id="priceFilter">
+      <option value="">All Prices</option>
+      <option value="low">Under GH₵500</option>
+      <option value="mid">GH₵300 - GH₵3,000</option>
+      <option value="high">Over GH₵5,000</option>
+    </select>
+    <select id="sortFilter">
+      <option value="featured">Featured</option>
+      <option value="lowtohigh">Price: Low to High</option>
+      <option value="hightolow">Price: High to Low</option>
+    </select>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+  <footer>&copy; 2025 GH Marketplace. All rights reserved.</footer>
+  <script>
+    // Example product data
+    const products = [
+      {
+        title: "Sworn to the Swell",
+        price: 500.00, // GH₵500.00
+        category: "Apparel",
+        img: "Sworn to the Swell.jpg",
+        description: "Premium cotton tee with unique print.",
+        rating: 4.5,
+        badge: "New"
+      },
+      {
+        title: "Gator Lounge [Black]",
+        price: 500.00, // GH₵500.00
+        category: "Apparel",
+        img: "Gator Lounge.jpg",
+        description: "Classic fit, bold statement.",
+        rating: 4,
+        badge: "Hot"
+      },
+      {
+        title: "Double Header-Gator",
+        price: 500.00, // GH₵500.00
+        category: "Apparel",
+        img: "Double Header-Gator.jpg",
+        description: "Unique design, limited edition.",
+        rating: 5,
+        badge: ""
+      },
+      {
+        title: "Poppy Birds Hat",
+        price: 400.00, // GH₵400.00
+        category: "Hats",
+        img: "Poppy Birds Hat.jpg",
+        description: "Stylish hat for all seasons.",
+        rating: 4,
+        badge: "Sale"
+      },
+      {
+        title: "Alligator Beadom",
+        price: 750.00, // GH₵750.00
+        category: "Shoes",
+        img: "Alligator Beadom.jpg",
+        description: "Handcrafted shoes with alligator pattern.",
+        rating: 5,
+        badge: ""
+      },
+      // Add more products as needed
+    ];
+
+    // Render products
+    function renderProducts(productList) {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      productList.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.style.animationDelay = (0.08 * i) + 's';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.title}" class="product-img">
+          ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+          <div class="product-info">
+            <div class="product-title">${p.title}</div>
+            <div class="product-desc">${p.description || ""}</div>
+            <div class="product-rating">${renderStars(p.rating)}</div>
+            <div class="product-price">GH₵${p.price.toFixed(2)}</div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Render stars for rating
+    function renderStars(rating) {
+      const fullStars = Math.floor(rating);
+      const halfStar = rating % 1 >= 0.5;
+      return '★'.repeat(fullStars) + (halfStar ? '½' : '');
+    }
+
+    // Filter and sort logic
+    function filterAndRender() {
+      let filtered = [...products];
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      const price = document.getElementById('priceFilter').value;
+      const sort = document.getElementById('sortFilter').value;
+
+      if (search) {
+        filtered = filtered.filter(p => p.title.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)));
+      }
+      if (category) {
+        filtered = filtered.filter(p => p.category === category);
+      }
+      if (price) {
+        filtered = filtered.filter(p => {
+          if (price === 'low') return p.price < 30;
+          if (price === 'mid') return p.price >= 30 && p.price <= 50;
+          if (price === 'high') return p.price > 50;
+        });
+      }
+      if (sort === 'lowtohigh') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === 'hightolow') {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+      renderProducts(filtered);
+    }
+
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', filterAndRender);
+    document.getElementById('categoryFilter').addEventListener('change', filterAndRender);
+    document.getElementById('priceFilter').addEventListener('change', filterAndRender);
+    document.getElementById('sortFilter').addEventListener('change', filterAndRender);
+
+    // Initial render
+    renderProducts(products);
+  </script>
+</body>
+</html>

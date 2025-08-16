@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Become a Seller - GH Marketplace</title>
+  <link rel="stylesheet" href="become-seller.css">
+</head>
+<body>
+  <header class="seller-header">
+    <h1 class="seller-anim-title">Become a Seller</h1>
+    <a href="home.html" class="seller-back-link">&larr; Back to Home</a>
+  </header>
+  <main>
+    <section class="seller-hero seller-fade-in">
+      <div class="seller-hero-text">
+        <h2>Grow Your Business with GH Marketplace</h2>
+        <p>Reach thousands of customers across Ghana. List your products, manage orders, and get paid fast!</p>
+        <ul class="seller-benefits">
+          <li><i class="fa fa-bolt"></i> Easy product uploads</li>
+          <li><i class="fa fa-users"></i> Access to a large customer base</li>
+          <li><i class="fa fa-money-bill"></i> Secure mobile money payouts</li>
+          <li><i class="fa fa-shield-alt"></i> Seller protection & support</li>
+        </ul>
+      </div>
+      <div class="seller-hero-img seller-slide-in">
+        <img src="Seller.jpg" alt="Seller" class="seller-img">
+        <div class="seller-badge-anim">NEW</div>
+      </div>
+    </section>
+    <section class="seller-form-section seller-fade-in-delay">
+      <h3>Sign Up to Start Selling</h3>
+      <form class="seller-form" id="sellerForm">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="business" placeholder="Business Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="text" name="location" placeholder="Location (e.g. Accra)" required>
+        <button type="submit" class="seller-cta">Become a Seller</button>
+      </form>
+      <div class="seller-success-message" id="sellerSuccess">Thank you for signing up! Our team will contact you soon.</div>
+    </section>
+  </main>
+  <script src="https://kit.fontawesome.com/9e8e60c7e6.js" crossorigin="anonymous"></script>
+  <script src="become-seller.js"></script>
+</body>
+</html>

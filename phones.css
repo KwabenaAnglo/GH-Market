@@ -1,0 +1,121 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7faff;
+}
+.phones-header {
+  background: #fff;
+  box-shadow: 0 2px 8px #eee;
+  padding: 24px 0 12px 0;
+  text-align: center;
+}
+.phones-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  color: #005cb2;
+  letter-spacing: 2px;
+}
+.phones-back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #2196f3;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.phones-back-link:hover {
+  color: #005cb2;
+}
+.phones-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 0 40px 0;
+  background: linear-gradient(90deg, #f7faff 60%, #b2e0ff 100%);
+}
+.phones-hero-text {
+  max-width: 400px;
+}
+.phones-hero-text h2 {
+  font-size: 2rem;
+  color: #2196f3;
+  margin-bottom: 12px;
+}
+.phones-hero-text p {
+  font-size: 1.1rem;
+  color: #003c6c;
+}
+.phones-video-container {
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px #2196f333;
+  border: 5px solid #fff;
+  background: #fff;
+}
+.phones-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.phones-categories {
+  padding: 32px 0 48px 0;
+  text-align: center;
+}
+.phones-categories h3 {
+  font-size: 1.6rem;
+  color: #005cb2;
+  margin-bottom: 24px;
+}
+.phones-category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.phones-category-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #2196f322;
+  padding: 28px 36px;
+  font-size: 1.15rem;
+  color: #005cb2;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  will-change: transform;
+}
+.phones-category-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 32px #2196f344;
+  background: #e0f7fa;
+}
+/* Animations */
+.phones-fade-in {
+  opacity: 0;
+  animation: fadeInPhones 1.1s ease-out forwards;
+}
+.phones-fade-in-delay {
+  opacity: 0;
+  animation: fadeInPhones 1.1s 0.7s ease-out forwards;
+}
+.phones-slide-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: slideInPhones 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+@keyframes fadeInPhones {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInPhones {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Products - GH Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .filter-select {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .filters-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .price-range input {
+            width: 100px;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease-out;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image i {
+            font-size: 60px;
+            color: #ccc;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .product-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .view-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .contact-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            padding: 12px 18px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+            margin-top: 40px;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+
+        .phone-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .phone-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .email-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .email-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .stats-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #667eea, 0 0 10px #667eea, 0 0 15px #667eea;
+            }
+            to {
+                box-shadow: 0 0 10px #667eea, 0 0 20px #667eea, 0 0 30px #667eea;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo floating">
+                <i class="fas fa-search"></i>
+            </div>
+            <h1>Browse Products</h1>
+            <p>Discover Amazing Deals from Trusted Sellers</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for products, brands, or sellers..." id="searchInput">
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="home">Home & Garden</option>
+                    <option value="vehicles">Vehicles</option>
+                    <option value="sports">Sports & Fitness</option>
+                    <option value="toys">Toys & Games</option>
+                </select>
+                <select class="filter-select" id="locationFilter">
+                    <option value="">All Locations</option>
+                    <option value="accra">Accra</option>
+                    <option value="kumasi">Kumasi</option>
+                    <option value="tema">Tema</option>
+                    <option value="cape-coast">Cape Coast</option>
+                    <option value="tamale">Tamale</option>
+                </select>
+                <button class="search-btn" onclick="searchProducts()">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Price Range</label>
+                    <div class="price-range">
+                        <input type="number" placeholder="Min" id="minPrice">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" id="maxPrice">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Condition</label>
+                    <select id="conditionFilter">
+                        <option value="">Any Condition</option>
+                        <option value="new">New</option>
+                        <option value="like-new">Like New</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <select id="sortFilter">
+                        <option value="recent">Most Recent</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Delivery</label>
+                    <select id="deliveryFilter">
+                        <option value="">Any Delivery</option>
+                        <option value="free">Free Delivery</option>
+                        <option value="same-day">Same Day</option>
+                        <option value="pickup">Pickup Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15,247</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2,891</div>
+                    <div class="stat-label">Sellers Online</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98.5%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Customer Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-container" id="productsContainer">
+            <!-- Product cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+            <button class="page-btn">Next →</button>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Need Help Finding Products?</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                Our product specialists are here to help! Contact us for personalized recommendations or assistance with your search.
+            </p>
+            
+            <div class="contact-buttons">
+                <a href="https://wa.me/233543274451" target="_blank" class="contact-btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Chat on WhatsApp
+                </a>
+                <a href="tel:+233543274451" class="contact-btn phone-btn">
+                    <i class="fas fa-phone"></i>
+                    Call Us
+                </a>
+                <a href="mailto:support@ghmarketplace.com?subject=Product%20Search%20Help" class="contact-btn email-btn">
+                    <i class="fas fa-envelope"></i>
+                    Email Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                title: "iPhone 14 Pro Max - 256GB",
+                price: "₵8,500",
+                location: "Accra, Ghana",
+                category: "electronics",
+                condition: "new",
+                badge: "Featured",
+                image: "fas fa-mobile-alt"
+            },
+            {
+                id: 2,
+                title: "Samsung 55\" Smart TV",
+                price: "₵3,200",
+                location: "Kumasi, Ghana",
+                category: "electronics",
+                condition: "like-new",
+                badge: "Hot Deal",
+                image: "fas fa-tv"
+            },
+            {
+                id: 3,
+                title: "Nike Air Max Sneakers",
+                price: "₵450",
+                location: "Accra, Ghana",
+                category: "fashion",
+                condition: "new",
+                badge: "New",
+                image: "fas fa-shoe-prints"
+            },
+            {
+                id: 4,
+                title: "Toyota Camry 2018",
+                price: "₵85,000",
+                location: "Tema, Ghana",
+                category: "vehicles",
+                condition: "good",
+                badge: "Verified",
+                image: "fas fa-car"
+            },
+            {
+                id: 5,
+                title: "Gaming Laptop - RTX 4060",
+                price: "₵12,500",
+                location: "Accra, Ghana",
+                category: "electronics",
+                condition: "new",
+                badge: "Premium",
+                image: "fas fa-laptop"
+            },
+            {
+                id: 6,
+                title: "Adidas Football Jersey",
+                price: "₵180",
+                location: "Cape Coast, Ghana",
+                category: "fashion",
+                condition: "new",
+                badge: "Sale",
+                image: "fas fa-tshirt"
+            },
+            {
+                id: 7,
+                title: "PS5 Console + 2 Controllers",
+                price: "₵6,800",
+                location: "Accra, Ghana",
+                category: "electronics",
+                condition: "like-new",
+                badge: "Limited Edition",
+                image: "fas fa-gamepad"
+            },
+            {
+                id: 8,
+                title: "Dumbbell Set 20kg",
+                price: "₵320",
+                location: "Kumasi, Ghana",
+                category: "sports",
+                condition: "good",
+                badge: "Popular",
+                image: "fas fa-dumbbell"
+            }
+        ];
+
+        // Function to render products
+        function renderProducts(productsToRender = products) {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+
+            productsToRender.forEach(product => {
+                const productCard = `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="${product.image}"></i>
+                            <div class="product-badge">${product.badge}</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.title}</h3>
+                            <div class="product-price">${product.price}</div>
+                            <div class="product-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${product.location}
+                            </div>
+                            <div class="product-actions">
+                                <a href="product-${product.id}.html" class="action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </a>
+                                <a href="https://wa.me/233543274451?text=Hi! I'm interested in the ${encodeURIComponent(product.title)}. Can you tell me more about it?" target="_blank" class="action-btn contact-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Contact
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += productCard;
+            });
+        }
+
+        // Function to search products
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            const condition = document.getElementById('conditionFilter').value;
+
+            let filteredProducts = products.filter(product => {
+                const matchesSearch = product.title.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || product.category === category;
+                const matchesLocation = !location || product.location.toLowerCase().includes(location);
+                const matchesCondition = !condition || product.condition === condition;
+
+                return matchesSearch && matchesCategory && matchesLocation && matchesCondition;
+            });
+
+            renderProducts(filteredProducts);
+        }
+
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+
+            // Add search functionality
+            document.getElementById('searchInput').addEventListener('input', searchProducts);
+            document.getElementById('categoryFilter').addEventListener('change', searchProducts);
+            document.getElementById('locationFilter').addEventListener('change', searchProducts);
+            document.getElementById('conditionFilter').addEventListener('change', searchProducts);
+
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('.action-btn, .page-btn, .search-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add pagination functionality
+            const pageButtons = document.querySelectorAll('.page-btn');
+            pageButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    pageButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

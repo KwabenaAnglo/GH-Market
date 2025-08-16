@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GH Marketplace - Buy/Sell Local Goods + Delivery</title>
+    <meta name="description" content="Local marketplace for buying and selling goods with fast delivery in Ghana" />
+    <meta name="author" content="GH Marketplace" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ghmarketplace.com/">
+    <meta property="og:title" content="GH Marketplace - Buy/Sell Local Goods + Delivery">
+    <meta property="og:description" content="Local marketplace for buying and selling goods with fast delivery in Ghana">
+    <meta property="og:image" content="https://ghmarketplace.com/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ghmarketplace.com/">
+    <meta name="twitter:title" content="GH Marketplace - Buy/Sell Local Goods + Delivery">
+    <meta name="twitter:description" content="Local marketplace for buying and selling goods with fast delivery in Ghana">
+    <meta name="twitter:image" content="https://ghmarketplace.com/images/twitter-card.jpg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js" defer>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        /* Critical CSS for above-the-fold content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+     <style>
+        /* Live Clock Styles */
+        .live-clock {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .clock-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem 3rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .clock-container:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .time-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .time-display span {
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .colon {
+            animation: blink 1s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .date-display {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .date-display span {
+            margin: 0 0.5rem;
+        }
+
+        .separator {
+            opacity: 0.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Location Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .location-search {
+            margin-bottom: 1.5rem;
+        }
+
+        .location-search input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .popular-locations h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        .location-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .location-option {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .location-option:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        /* Location button in nav */
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+            font-size: 0.875rem;
+        }
+
+        .location-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .location-btn:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Home Icon Link Styles */
+        .home-icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary);
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .home-icon-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            transform: scale(1.05);
+        }
+
+        .home-btn {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Navigation -->
+    <header role="banner">
+        <nav class="navbar" aria-label="Main navigation">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <div class="nav-brand">
+                    <img src="GH.jpg" alt="GH Logo" class="brand-logo" />
+                    <span class="brand-text">GH Marketplace</span>
+                </div>
+
+                <!-- Search Bar - Desktop -->
+                <div class="search-bar desktop-only">
+                    <div class="search-input-wrapper">
+                        <a href="index.html" class="home-icon-link">
+                            <i data-lucide="home" class="search-icon"></i>
+                        </a>
+                        <input type="text" placeholder="Search for products, categories, or sellers..." class="search-input" id="mainSearchInput">
+                    </div>
+                    <div class="search-dropdown" id="searchDropdown" style="display:none;"></div>
+                </div>
+
+                <!-- Location -->
+                <div class="location desktop-only">
+                    <i data-lucide="map-pin"></i>
+                    <span>Deliver to</span>
+                    <button class="location-btn">Accra, GA</button>
+                </div>
+
+                <!-- Actions -->
+                <div class="nav-actions">
+                    <a href="index.html" class="nav-btn mobile-only home-btn">
+                        <i data-lucide="home"></i>
+                    </a>
+                    
+                    <button class="nav-btn cart-btn">
+                        <i data-lucide="shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    
+                    <button class="nav-btn">
+                        <i data-lucide="user"></i>
+                    </button>
+                    
+                    <button class="nav-btn mobile-only">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search -->
+            <div class="mobile-search mobile-only">
+                <div class="search-input-wrapper">
+                    <a href="index.html" class="home-icon-link">
+                        <i data-lucide="home" class="search-icon"></i>
+                    </a>
+                    <input type="text" placeholder="Search products..." class="search-input">
+                </div>
+            </div>
+        </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main id="main-content" role="main">
+        <section class="hero" aria-label="Hero section">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Your Local Marketplace</h1>
+                <p>Buy and sell amazing products in your neighborhood with fast, reliable delivery</p>
+            </div>
+
+            <!-- Live Clock -->
+            <div class="live-clock">
+                <div class="clock-container">
+                    <div class="time-display">
+                        <span id="hours">00</span>
+                        <span class="colon">:</span>
+                        <span id="minutes">00</span>
+                        <span class="colon">:</span>
+                        <span id="seconds">00</span>
+                    </div>
+                    <div class="date-display">
+                        <span id="day">Monday</span>
+                        <span class="separator">•</span>
+                        <span id="date">January 1, 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3>50K+</h3>
+                    <p>Active Users</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="truck"></i>
+                    </div>
+                    <h3>Same Day</h3>
+                    <p>Local Delivery</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="shield"></i>
+                    </div>
+                    <h3>100%</h3>
+                    <p>Secure Payments</p>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="hero-cta">
+                <a href="start-buying.html" class="btn btn-secondary">Start Buying</a>
+                <a href="sell.html" class="btn btn-outline">Start Selling</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+        <section class="category-section" aria-label="Product categories">
+        <div class="container">
+            <div class="category-header">
+                <button class="filter-toggle btn" id="filterToggle">
+                    <i data-lucide="filter"></i>
+                    Categories
+                    <span class="category-count" id="categoryCount">0</span>
+                </button>
+                <button class="clear-filters" id="clearFilters" style="display: none;">
+                    <i data-lucide="x"></i>
+                    Clear All
+                </button>
+            </div>
+
+            <div class="category-grid" id="categoryGrid" style="display: none;">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+
+            <div class="selected-categories" id="selectedCategories">
+                <!-- Selected categories will be shown here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Demo Section -->
+    <section class="upload-section">
+        <div class="container">
+            <div class="upload-demo">
+                <div class="section-header">
+                    <h2>Sell Your Products</h2>
+                    <p>Upload high-quality images to showcase your products to thousands of local buyers</p>
+                    <button class="btn btn-primary" id="toggleUpload">
+                        <i data-lucide="upload"></i>
+                        Try Upload Demo
+                    </button>
+                </div>
+
+                <div class="upload-card" id="uploadCard" style="display: none;">
+                    <div class="card-header">
+                        <h3><i data-lucide="package"></i> Enterprise File Upload Component</h3>
+                    </div>
+                    <div class="card-content">
+                        <!-- File Upload Component -->
+                        <div class="file-upload" id="fileUpload">
+                            <div class="upload-zone" id="uploadZone">
+                                <i data-lucide="upload" class="upload-icon"></i>
+                                <h3>Drop files here or click to browse</h3>
+                                <p>Upload up to 10 files • Max 100MB per file</p>
+                                <button class="btn btn-outline">Select Files</button>
+                                <input type="file" id="fileInput" multiple accept="image/*,video/*,.pdf,.doc,.docx" style="display: none;">
+                            </div>
+
+                            <!-- Overall Progress -->
+                            <div class="overall-progress" id="overallProgress" style="display: none;">
+                                <div class="progress-header">
+                                    <span>Overall Progress</span>
+                                    <span class="progress-text" id="overallProgressText">0%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="overallProgressFill"></div>
+                                </div>
+                            </div>
+
+                            <!-- File List -->
+                            <div class="file-list" id="fileList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Products Section -->
+        <section class="featured-products" aria-label="Featured products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Discover handpicked items from local sellers</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Running Shoes">
+                        <div class="product-actions">
+                            <button class="action-btn wishlist-btn" aria-label="Add to wishlist">
+                                <i data-lucide="heart"></i>
+                            </button>
+                            <button class="action-btn quick-view" aria-label="Quick view">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Premium Running Shoes</h3>
+                        <div class="product-price">
+                            <span class="current-price">₵450.00</span>
+                            <span class="original-price">₵600.00</span>
+                            <span class="discount">25% OFF</span>
+                        </div>
+                        <div class="product-location">
+                            <i data-lucide="map-pin"></i>
+                            <span>Accra, GA</span>
+                        </div>
+                        <div class="product-footer">
+                            <button class="add-to-cart">
+                                <i data-lucide="shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card">
+                    <div class="product-badge new">New</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1099&q=80" alt="Smart Watch">
+                        <div class="product-actions">
+                            <button class="action-btn wishlist-btn" aria-label="Add to wishlist">
+                                <i data-lucide="heart"></i>
+                            </button>
+                            <button class="action-btn quick-view" aria-label="Quick view">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Smart Watch Pro</h3>
+                        <div class="product-price">
+                            <span class="current-price">₵1,200.00</span>
+                            <span class="original-price">₵1,500.00</span>
+                        </div>
+                        <div class="product-location">
+                            <i data-lucide="map-pin"></i>
+                            <span>Kumasi, KS</span>
+                        </div>
+                        <div class="product-footer">
+                            <button class="add-to-cart">
+                                <i data-lucide="shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card">
+                    <div class="product-badge">Trending</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Wireless Headphones" loading="lazy" width="300" height="300">
+                        <div class="product-actions">
+                            <button class="action-btn wishlist-btn active" aria-label="Remove from wishlist">
+                                <i data-lucide="heart" fill="currentColor"></i>
+                            </button>
+                            <button class="action-btn quick-view" aria-label="Quick view">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Wireless Headphones</h3>
+                        <div class="product-price">
+                            <span class="current-price">₵350.00</span>
+                            <span class="original-price">₵500.00</span>
+                            <span class="discount">30% OFF</span>
+                        </div>
+                        <div class="product-location">
+                            <i data-lucide="map-pin"></i>
+                            <span>Tema, GA</span>
+                        </div>
+                        <div class="product-footer">
+                            <button class="add-to-cart">
+                                <i data-lucide="shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card">
+                    <div class="product-badge">Limited</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Vintage Camera">
+                        <div class="product-actions">
+                            <button class="action-btn wishlist-btn" aria-label="Add to wishlist">
+                                <i data-lucide="heart"></i>
+                            </button>
+                            <button class="action-btn quick-view" aria-label="Quick view">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Vintage Camera</h3>
+                        <div class="product-price">
+                            <span class="current-price">₵850.00</span>
+                            <span class="original-price">₵1,200.00</span>
+                            <span class="discount">29% OFF</span>
+                        </div>
+                        <div class="product-location">
+                            <i data-lucide="map-pin"></i>
+                            <span>Cape Coast, CC</span>
+                        </div>
+                        <div class="product-footer">
+                            <button class="add-to-cart">
+                                <i data-lucide="shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-all-container">
+                <a href="All products.html" class="view-all-btn">
+                    View All Products
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+        <section class="features-section" aria-label="Features">
+            <h2 class="sr-only">Why Choose Us</h2>
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose GH Marketplace?</h2>
+                <p>Experience the future of local commerce with our advanced platform features</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon primary">
+                        <i data-lucide="upload"></i>
+                    </div>
+                    <h3>Advanced Upload System</h3>
+                    <p>Upload multiple files with progress tracking, pause/resume capabilities, and automatic optimization</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon accent">
+                        <i data-lucide="package"></i>
+                    </div>
+                    <h3>Smart Categorization</h3>
+                    <p>AI-powered product categorization and intelligent search to help buyers find exactly what they need</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon primary">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Track your listings performance with detailed analytics and insights to maximize your sales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon">GH</div>
+                    <h3>GH Marketplace</h3>
+                </div>
+                <p>Buy and sell local goods with fast delivery • Built with modern technology</p>
+                <p class="copyright">© 2025 GH Marketplace. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="scripts.js"></script>
+
+    <!-- Live Clock JavaScript -->
+    <script>
+        // Initialize Lucide Icons with error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.warn('Lucide Icons failed to load. Using fallback icons.');
+                // Fallback: Add a class to show text fallbacks
+                document.body.classList.add('lucide-fallback');
+            }
+            
+            // Set focus on the main content for screen readers
+            const skipLink = document.querySelector('.skip-link');
+            const mainContent = document.getElementById('main-content');
+            
+            if (skipLink && mainContent) {
+                skipLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mainContent.setAttribute('tabindex', '-1');
+                    mainContent.focus();
+                });
+            }
+        });
+        
+        // Live Clock Functionality
+        function updateClock() {
+            const now = new Date();
+            
+            // Update time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            // Update date
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            const day = days[now.getDay()];
+            const date = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+            
+            document.getElementById('day').textContent = day;
+            document.getElementById('date').textContent = date;
+        }
+        
+        // Update clock immediately and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLocationModal">&times;</span>
+            <h2>Select Your Location</h2>
+            <form id="locationForm">
+                <label for="locationSelect">Choose a city:</label>
+                <select id="locationSelect" name="location">
+                    <option value="Accra, GA">Accra, GA</option>
+                    <option value="Kumasi, AS">Kumasi, AS</option>
+                    <option value="Cape Coast, CC">Cape Coast, CC</option>
+                    <option value="Tamale, NR">Tamale, NR</option>
+                    <option value="Takoradi, WR">Takoradi, WR</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-block">Set Location</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

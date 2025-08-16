@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - GH Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#fffbeee 0%,#f7faff 100%);color:#222;">
+  <div style="background:linear-gradient(90deg,#2196f3 60%,#ffd600 100%);padding:36px 0 18px 0;text-align:center;box-shadow:0 2px 16px #ffd60044;">
+    <h1 id="contactTitle" style="margin:0;font-size:2.3rem;letter-spacing:2px;font-weight:800;color:#fff;opacity:0;transform:translateY(-30px);transition:all 1s cubic-bezier(.68,-0.55,.27,1.55);">Contact Us</h1>
+    <a href="home.html" style="display:inline-block;margin-top:18px;color:#fffde7;text-decoration:none;font-size:16px;transition:color 0.2s;">&larr; Back to Home</a>
+  </div>
+  <main style="max-width:800px;margin:40px auto 0 auto;padding:32px 20px 48px 20px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #2196f322;opacity:0;transform:translateY(40px);transition:all 1.2s cubic-bezier(.68,-0.55,.27,1.55);">
+    <section>
+      <h2 style="color:#2196f3;font-size:1.5rem;margin-top:0;">We're Here to Help</h2>
+      <p>Have a question, suggestion, or need assistance? Reach out and our team will get back to you promptly.</p>
+      <form id="contactForm" style="display:flex;flex-direction:column;gap:16px;max-width:420px;margin:0 auto;background:#f9fbff;padding:28px 32px 20px 32px;border-radius:16px;box-shadow:0 2px 12px #2196f322;">
+        <input type="text" name="name" placeholder="Your Name" required style="padding:12px 14px;border:1px solid #bdbdbd;border-radius:8px;font-size:1rem;outline:none;transition:border 0.2s;">
+        <input type="email" name="email" placeholder="Your Email" required style="padding:12px 14px;border:1px solid #bdbdbd;border-radius:8px;font-size:1rem;outline:none;transition:border 0.2s;">
+        <textarea name="message" placeholder="How can we help you?" required style="padding:14px 16px;border:1px solid #bdbdbd;border-radius:8px;font-size:1rem;outline:none;min-height:80px;transition:border 0.2s;"></textarea>
+        <button type="submit" id="contactBtn" style="background:linear-gradient(90deg,#2196f3 60%,#ffd600 100%);color:#fff;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 8px #ffd60033;transition:background 0.2s,transform 0.2s;">Send Message</button>
+        <div id="contactMsg" style="display:none;margin-top:10px;color:#2196f3;font-size:1.13rem;background:#e3f2fd;border-radius:10px;padding:10px 22px;box-shadow:0 2px 8px #2196f322;">Thank you! Our team will contact you soon.</div>
+      </form>
+      <div style="margin-top:32px;text-align:center;color:#555;font-size:1rem;">
+        <p><b>Email:</b> support@ghmarketplace.com</p>
+        <p><b>Phone:</b> <a href="tel:+233543274451" style="color:#2196f3;text-decoration:none;">+233 54 327 4451</a></p>
+        <p><b>WhatsApp:</b> <a href="https://wa.me/233543274451" target="_blank" style="color:#25d366;text-decoration:none;font-weight:bold;">📱 Chat on WhatsApp</a></p>
+        <p><b>Address:</b> 123 Osu Avenue, Accra, Ghana</p>
+      </div>
+      <style>
+        @keyframes mapFadeIn {
+          from { opacity: 0; transform: translateY(40px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+      </style>
+      <div id="mapContainer" style="margin:36px auto 0 auto;max-width:600px;text-align:center;opacity:0;transform:translateY(40px) scale(0.97);transition:opacity 1.1s cubic-bezier(.68,-0.55,.27,1.55),transform 1.1s cubic-bezier(.68,-0.55,.27,1.55);">
+        <iframe
+          src="https://www.google.com/maps?q=123+Osu+Avenue,+Accra,+Ghana&output=embed"
+          width="100%" height="300" style="border:0;border-radius:14px;box-shadow:0 2px 24px #2196f344;transition:box-shadow 0.3s;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="GH Marketplace Location Map"
+          onmouseover="this.style.boxShadow='0 4px 32px #2196f399'"
+          onmouseout="this.style.boxShadow='0 2px 24px #2196f344'"
+        ></iframe>
+      </div>
+      <script>
+        window.addEventListener('DOMContentLoaded', function() {
+          setTimeout(function() {
+            var map = document.getElementById('mapContainer');
+            map.style.opacity = 1;
+            map.style.transform = 'translateY(0) scale(1)';
+          }, 900);
+        });
+      </script>
+    </section>
+  </main>
+  <script>
+    // Animate title and main content in sequence
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var title = document.getElementById('contactTitle');
+        var main = document.querySelector('main');
+        title.style.opacity = 1;
+        title.style.transform = 'translateY(0)';
+        setTimeout(function() {
+          main.style.opacity = 1;
+          main.style.transform = 'translateY(0)';
+        }, 400);
+      }, 250);
+      // Contact form animation
+      var form = document.getElementById('contactForm');
+      var btn = document.getElementById('contactBtn');
+      var msg = document.getElementById('contactMsg');
+      if(form && btn && msg) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          btn.style.transform = 'scale(0.95)';
+          setTimeout(function() {
+            btn.style.transform = 'scale(1)';
+            form.style.opacity = 0.6;
+            setTimeout(function() {
+              form.style.display = 'none';
+              msg.style.display = 'block';
+              msg.style.opacity = 1;
+            }, 600);
+          }, 300);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

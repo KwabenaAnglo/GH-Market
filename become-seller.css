@@ -1,0 +1,204 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f0f7ff 0%, #fff7f0 100%);
+}
+.seller-header {
+  background: linear-gradient(90deg, #43a047 60%, #ffd600 100%);
+  box-shadow: 0 2px 16px #ffd60044;
+  padding: 36px 0 18px 0;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.seller-anim-title {
+  font-size: 2.6rem;
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: 800;
+  animation: sellerPulse 1.2s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
+}
+.seller-back-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #fffde7;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.seller-back-link:hover {
+  color: #fff;
+}
+.seller-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+  padding: 60px 0 40px 0;
+  background: none;
+}
+.seller-hero-text {
+  max-width: 400px;
+}
+.seller-hero-text h2 {
+  font-size: 2rem;
+  color: #43a047;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.seller-hero-text p {
+  font-size: 1.1rem;
+  color: #1b5e20;
+}
+.seller-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+}
+.seller-benefits li {
+  font-size: 1.12rem;
+  margin-bottom: 13px;
+  color: #388e3c;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: sellerFadeIn 1.2s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+.seller-hero-img {
+  position: relative;
+  animation: sellerSlideIn 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+  opacity: 0;
+}
+.seller-img {
+  width: 320px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px #43a04744;
+  border: 6px solid #fff;
+  background: #fff;
+}
+.seller-badge-anim {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  background: linear-gradient(90deg, #ffd600 60%, #43a047 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px 18px;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px #ffd60033;
+  letter-spacing: 2px;
+  animation: sellerBadgePop 1.2s 0.5s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+  opacity: 0;
+}
+.seller-form-section {
+  padding: 32px 0 48px 0;
+  text-align: center;
+}
+.seller-form-section h3 {
+  font-size: 1.5rem;
+  color: #43a047;
+  margin-bottom: 22px;
+}
+.seller-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px 32px 24px 32px;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #43a04722;
+  animation: sellerFormPop 1.1s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+  opacity: 0;
+}
+.seller-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.seller-form input:focus {
+  border: 1.5px solid #43a047;
+}
+.seller-cta {
+  margin-top: 8px;
+  background: linear-gradient(90deg, #43a047 60%, #ffd600 100%);
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #ffd60033;
+  transition: background 0.2s, transform 0.2s;
+  animation: sellerCtaPop 1.2s 1s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+  opacity: 0;
+}
+.seller-cta:hover {
+  background: linear-gradient(90deg, #ffd600 60%, #43a047 100%);
+  color: #fff;
+  transform: scale(1.06);
+}
+.seller-success-message {
+  display: none;
+  margin-top: 24px;
+  color: #43a047;
+  font-size: 1.13rem;
+  background: #e8f5e9;
+  border-radius: 10px;
+  padding: 14px 28px;
+  box-shadow: 0 2px 8px #43a04722;
+  animation: sellerFadeIn 1.5s 1.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+  opacity: 0;
+}
+/* Animations */
+.seller-fade-in {
+  opacity: 0;
+  animation: sellerFadeIn 1.1s ease-out forwards;
+}
+.seller-fade-in-delay {
+  opacity: 0;
+  animation: sellerFadeIn 1.1s 0.7s ease-out forwards;
+}
+.seller-slide-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: sellerSlideIn 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+@keyframes sellerPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+@keyframes sellerFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sellerSlideIn {
+  from { opacity: 0; transform: translateX(80px) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes sellerBadgePop {
+  from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+  to { opacity: 1; transform: scale(1.1) rotate(-3deg); }
+}
+@keyframes sellerFormPop {
+  from { opacity: 0; transform: scale(0.7) translateY(40px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes sellerCtaPop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}

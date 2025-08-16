@@ -1,0 +1,121 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f7f7;
+}
+.crafts-header {
+  background: #fff;
+  box-shadow: 0 2px 8px #eee;
+  padding: 24px 0 12px 0;
+  text-align: center;
+}
+.crafts-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  color: #00695c;
+  letter-spacing: 2px;
+}
+.crafts-back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #26a69a;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.crafts-back-link:hover {
+  color: #00695c;
+}
+.crafts-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 0 40px 0;
+  background: linear-gradient(90deg, #f7f7f7 60%, #b2dfdb 100%);
+}
+.crafts-hero-text {
+  max-width: 400px;
+}
+.crafts-hero-text h2 {
+  font-size: 2rem;
+  color: #009688;
+  margin-bottom: 12px;
+}
+.crafts-hero-text p {
+  font-size: 1.1rem;
+  color: #004d40;
+}
+.crafts-video-container {
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px #00968833;
+  border: 5px solid #fff;
+  background: #fff;
+}
+.crafts-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.crafts-categories {
+  padding: 32px 0 48px 0;
+  text-align: center;
+}
+.crafts-categories h3 {
+  font-size: 1.6rem;
+  color: #00695c;
+  margin-bottom: 24px;
+}
+.crafts-category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.crafts-category-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #00968822;
+  padding: 28px 36px;
+  font-size: 1.15rem;
+  color: #00695c;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  will-change: transform;
+}
+.crafts-category-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 32px #00968844;
+  background: #e0f2f1;
+}
+/* Animations */
+.crafts-fade-in {
+  opacity: 0;
+  animation: fadeInCrafts 1.1s ease-out forwards;
+}
+.crafts-fade-in-delay {
+  opacity: 0;
+  animation: fadeInCrafts 1.1s 0.7s ease-out forwards;
+}
+.crafts-slide-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: slideInCrafts 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+@keyframes fadeInCrafts {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInCrafts {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

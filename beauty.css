@@ -1,0 +1,121 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff7fa;
+}
+.beauty-header {
+  background: #fff;
+  box-shadow: 0 2px 8px #eee;
+  padding: 24px 0 12px 0;
+  text-align: center;
+}
+.beauty-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  color: #b4005c;
+  letter-spacing: 2px;
+}
+.beauty-back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #ff69b4;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.beauty-back-link:hover {
+  color: #b4005c;
+}
+.beauty-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 0 40px 0;
+  background: linear-gradient(90deg, #fff7fa 60%, #ffe0f5 100%);
+}
+.beauty-hero-text {
+  max-width: 400px;
+}
+.beauty-hero-text h2 {
+  font-size: 2rem;
+  color: #ff69b4;
+  margin-bottom: 12px;
+}
+.beauty-hero-text p {
+  font-size: 1.1rem;
+  color: #7b004b;
+}
+.beauty-video-container {
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px #ff69b433;
+  border: 5px solid #fff;
+  background: #fff;
+}
+.beauty-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.beauty-categories {
+  padding: 32px 0 48px 0;
+  text-align: center;
+}
+.beauty-categories h3 {
+  font-size: 1.6rem;
+  color: #b4005c;
+  margin-bottom: 24px;
+}
+.beauty-category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.beauty-category-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #ff69b422;
+  padding: 28px 36px;
+  font-size: 1.15rem;
+  color: #b4005c;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  will-change: transform;
+}
+.beauty-category-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 32px #ff69b444;
+  background: #fff0fa;
+}
+/* Animations */
+.beauty-fade-in {
+  opacity: 0;
+  animation: fadeInBeauty 1.1s ease-out forwards;
+}
+.beauty-fade-in-delay {
+  opacity: 0;
+  animation: fadeInBeauty 1.1s 0.7s ease-out forwards;
+}
+.beauty-slide-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: slideInBeauty 1.2s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+@keyframes fadeInBeauty {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInBeauty {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

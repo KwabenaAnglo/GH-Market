@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cookie Policy - GH Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#fff7f0 0%,#f0f7ff 100%);color:#222;">
+  <div style="background:linear-gradient(90deg,#ff9800 60%,#43a047 100%);padding:36px 0 18px 0;text-align:center;box-shadow:0 2px 16px #ff980044;">
+    <h1 id="cookieTitle" style="margin:0;font-size:2.3rem;letter-spacing:2px;font-weight:800;color:#fff;opacity:0;transform:translateY(-30px);transition:all 1s cubic-bezier(.68,-0.55,.27,1.55);">Cookie Policy</h1>
+    <a href="home.html" style="display:inline-block;margin-top:18px;color:#fffde7;text-decoration:none;font-size:16px;transition:color 0.2s;">&larr; Back to Home</a>
+  </div>
+  <main style="max-width:800px;margin:40px auto 0 auto;padding:32px 20px 48px 20px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #ff980022;opacity:0;transform:translateY(40px);transition:all 1.2s cubic-bezier(.68,-0.55,.27,1.55);">
+    <section>
+      <h2 style="color:#ff9800;font-size:1.5rem;margin-top:0;">How We Use Cookies</h2>
+      <p>This Cookie Policy explains how GH Marketplace uses cookies and similar technologies to improve your experience on our website.</p>
+      <h3 style="color:#388e3c;">What Are Cookies?</h3>
+      <p>Cookies are small text files stored on your device when you visit our site. They help us remember your preferences, analyze site traffic, and enhance security.</p>
+      <h3 style="color:#388e3c;">Types of Cookies We Use</h3>
+      <ul style="margin-bottom:18px;">
+        <li><b>Essential Cookies:</b> Enable core site functionality (e.g., login, cart).</li>
+        <li><b>Performance Cookies:</b> Help us understand how visitors use the site.</li>
+        <li><b>Functional Cookies:</b> Remember your preferences and settings.</li>
+        <li><b>Marketing Cookies:</b> Personalize offers and measure ad effectiveness.</li>
+      </ul>
+      <h3 style="color:#388e3c;">Managing Your Cookies</h3>
+      <ul style="margin-bottom:18px;">
+        <li>You can accept or decline cookies in your browser settings.</li>
+        <li>Disabling cookies may affect some site features.</li>
+        <li>We respect your privacy and only use cookies as described here.</li>
+      </ul>
+      <h3 style="color:#388e3c;">Policy Updates</h3>
+      <p>We may update this Cookie Policy from time to time. Changes will be posted here and are effective immediately.</p>
+      <div style="margin-top:32px;text-align:center;">
+        <button id="acceptCookieBtn" style="background:linear-gradient(90deg,#ff9800 60%,#43a047 100%);color:#fff;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 8px #ff980033;transition:background 0.2s,transform 0.2s;">Accept Cookies</button>
+        <div id="cookieMsg" style="display:none;margin-top:18px;color:#43a047;font-size:1.13rem;background:#e8f5e9;border-radius:10px;padding:14px 28px;box-shadow:0 2px 8px #43a04722;">Thank you! Your cookie preferences have been saved.</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Animate title and main content in sequence
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var title = document.getElementById('cookieTitle');
+        var main = document.querySelector('main');
+        title.style.opacity = 1;
+        title.style.transform = 'translateY(0)';
+        setTimeout(function() {
+          main.style.opacity = 1;
+          main.style.transform = 'translateY(0)';
+        }, 400);
+      }, 250);
+      // Accept Cookies button animation
+      var btn = document.getElementById('acceptCookieBtn');
+      var msg = document.getElementById('cookieMsg');
+      if(btn && msg) {
+        btn.addEventListener('click', function() {
+          btn.style.transform = 'scale(0.95)';
+          setTimeout(function() {
+            btn.style.transform = 'scale(1)';
+            msg.style.display = 'block';
+            msg.style.opacity = 1;
+          }, 350);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

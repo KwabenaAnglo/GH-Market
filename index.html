@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="GH Market - Ghana's trusted local marketplace for buying and selling goods with secure delivery.">
+    <meta name="keywords" content="Ghana, marketplace, buy, sell, local, online shopping, GH Market">
+    <meta name="author" content="GH Market">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ghmarket.com/">
+    <meta property="og:title" content="GH Market - Buy & Sell Locally in Ghana">
+    <meta property="og:description" content="Ghana's trusted local marketplace for buying and selling goods with secure delivery.">
+    <meta property="og:image" content="https://ghmarket.com/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ghmarket.com/">
+    <meta name="twitter:title" content="GH Market - Buy & Sell Locally in Ghana">
+    <meta name="twitter:description" content="Ghana's trusted local marketplace for buying and selling goods with secure delivery.">
+    <meta name="twitter:image" content="https://ghmarket.com/images/twitter-card.jpg">
+
+    <title>GH Market - Buy & Sell Locally in Ghana</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Firebase Config and Auth -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-store brand-icon"></i>
+                <span class="brand-text">GH Market</span>
+            </div>
+            
+            <div class="search-bar">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search for products, sellers, or categories..." autocomplete="off">
+                    <div id="searchSuggestions" class="search-suggestions">
+                        <!-- Search suggestions will be populated here -->
+                    </div>
+                    <div class="location-filter">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select>
+                            <option>All Ghana</option>
+                            <option>Accra</option>
+                            <option>Kumasi</option>
+                            <option>Cape Coast</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="shop.html" class="nav-link">Categories</a>
+                <a href="start-buying.html" class="nav-link">Buy</a>
+                <a href="Cart.html" class="nav-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <!-- Authentication Buttons -->
+                <div id="auth-buttons-container" class="auth-buttons-container">
+                    <div id="signed-in-user" style="display: none;">
+                        <span id="user-email" style="margin-right: 10px; font-size: 0.9em;"></span>
+                        <button id="sign-out-button" class="btn btn-outline">Sign Out</button>
+                    </div>
+                    <div id="signed-out-user">
+                        <a href="auth.html" id="headerSignInBtn" class="btn btn-outline">Sign In</a>
+                        <a href="signup.html" id="headerSignUpBtn" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Buy & Sell <span class="gradient-text">Locally</span> with Ease
+                </h1>
+                <p class="hero-description">
+                    Discover amazing deals from trusted sellers in your area. Fast delivery, secure payments, and quality guaranteed.
+                </p>
+                <div class="hero-buttons">
+                    <a href="Start Shopping.html" class="btn btn-primary btn-lg">
+                       <i class="fas fa-search"></i>
+                         Start Shopping
+                        </a>
+                    <a href="sell.html" class=" btn btn-outline btn-lg">
+                       <i class="fas fa-box"></i>
+                         Start Selling
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">5K+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Products Listed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Cities Covered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="location-badge">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Accra, Ghana</span>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop by Category</h2>
+                <p>Find exactly what you're looking for in our carefully organized categories</p>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Fashion</h3>
+                    <p>Clothing, shoes & accessories</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Electronics</h3>
+                    <p>Phones, laptops & gadgets</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home & Garden</h3>
+                    <p>Furniture & decor</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Vehicles</h3>
+                    <p>Cars, bikes & parts</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Toys & Games</h3>
+                    <p>For all ages</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Sports & Fitness</h3>
+                    <p>Equipment & gear</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <h2>Featured Products</h2>
+                    <p>Discover the best deals from trusted sellers</p>
+                </div>
+                <a href="All products.html" class="view-all">View All →</a>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose GH Market?</h2>
+                <p>We've built the most trusted and convenient local marketplace in Ghana</p>
+            </div>
+            <div class="features-grid" id="featuresGrid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-store"></i>
+                        <span>GH Market</span>
+                    </div>
+                    <p>Ghana's most trusted local marketplace for buying and selling goods with secure delivery.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/edward_asimeng"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/edward_asimeng"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/kwabena_anglo_/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/233543274451" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Buyers</h4>
+                    <ul>
+                        <li><a href="browse-products.html">Browse Products</a></li>
+                        <li><a href="delivery-info.html">Delivery Info</a></li>
+                        <li><a href="payment-methods.html">Payment Methods</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Sellers</h4>
+                    <ul>
+                        <li><a href="sell.html">Start Selling</a></li>
+                        <li><a href="seller-guidelines.html">Seller Guide</a></li>
+                        <li><a href="fees-pricing.html">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="help-center.html">Help Center</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="safety-tips.html">Safety Tips</a></li>
+                        <li><a href="report-issue.html">Report Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 GH Market. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Sign In</h2>
+            <form class="sign-in-form">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        /* WhatsApp Chat Widget Styles */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chat-header {
+            background: #25D366;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-content i {
+            font-size: 20px;
+        }
+
+        .minimize-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .whatsapp-widget.active .chat-container {
+            max-height: 500px;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #e5ddd5;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAVlJREFUaEPtmE0OgjAQRd9U/AF3bsQjuHEjHkG9gUfQI7hxJx5Bd6WJC01pZzqV0kZxYhImEEL7vvfmzUw7Gg7D8EaHfQKjAOn7/maM2RGRExHtq6p6jMfjZ1mWj81m8xqNRs+maS7z+fy+3W6fXwFp2/Zc1/V1Pp9f8zx/5Hn+WCwW1yzL7svl8prn+SNJkvtut7sR0Xmz2dxDg4wB6brubIx5rNfrS5Ik9yRJ7qvV6pIkyT1N0/t+v78ZYw6r1eoeGmQMSNd1J2PMI8/zx2w2u6Vpek/T9J7n+WOxWNzSNL0XRfHI8/wxmUz2RVGcQoOMAen7/mSMeeR5/pjP57c0Te9Zlj2Wy+U1TdN7URRfz4fD4RQSZAzI8Xg8GmMeRVH8eZ6mafDn9QvE9Xw6nQYHGQPi8vx8PgcHcXl+uVzBQVyeX6/X4CAuz6/Xa3AQl+fX6zU4iMvz6/UaHMTl+fV6DQ7i8vx6vQYHcXl+vV6Dg7g8v16vwUFcnl+v1+AgLs+v1+sfQf4BwQ8Q8Q0hwyMAAAAASUVORK5CYII=');
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .received {
+            background: white;
+            border-top-left-radius: 5px;
+            align-self: flex-start;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .time {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            background: #f0f2f5;
+            border-top: 1px solid #e9e9e9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #e9edef;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            background-color: #fff;
+            box-shadow: 0 1px 0.5px rgba(11,20,26,0.13);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chat-input-container input:focus {
+            border-color: #00a884;
+            box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+        }
+
+        .chat-input-container button {
+            background-color: #00a884;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .chat-input-container button:hover {
+            background-color: #17a78b;
+            transform: scale(1.05);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+
+        .whatsapp-widget {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-widget.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+
+    <!-- WhatsApp Chat Widget HTML -->
+    <div class="whatsapp-widget" id="whatsappWidget">
+        <div class="chat-header" id="chatHeader">
+            <div class="header-content">
+                <i class="fab fa-whatsapp"></i>
+                <span>Chat with us</span>
+            </div>
+            <button class="minimize-btn" id="minimizeChat">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message received">
+                    <p>Hello! How can we help you today?</p>
+                    <span class="time">Just now</span>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+                <button id="sendMessageBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/233543274451" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- My main application script. THIS IS WHERE THE NEW AUTH CODE GOES. -->
+    <script src="script.js"></script>
+    <style>
+        /* Ensure the link looks like a button */
+        .whatsapp-float {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .whatsapp-float i {
+            color: white;
+        }
+    </style>
+    
+    <script>
+        // Remove the chat widget functionality since we're using direct WhatsApp link
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('WhatsApp direct chat button initialized');
+            
+            // Optional: Add animation on hover
+            const whatsappBtn = document.querySelector('.whatsapp-float');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                whatsappBtn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                // Optional: Add click animation
+                whatsappBtn.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                whatsappBtn.addEventListener('mouseup', function() {
+                    this.style.transform = 'scale(1.1)';
+                });
+            }
+        });
+    </script>
+
+
+</body>
+</html>
